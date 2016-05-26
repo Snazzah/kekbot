@@ -2,7 +2,7 @@ require 'rubygems'
 require 'discordrb'
 require 'json'
 
-bot = Discordrb::Commands::CommandBot.new token: ARGV[0], application_id: 184500834053259265, prefix: '.'
+bot = Discordrb::Commands::CommandBot.new token: ARGV[0], application_id: 185442396119629824, prefix: '.'
 
 puts "This bot's invite URL is #{bot.invite_url}."
 
