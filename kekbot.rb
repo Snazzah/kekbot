@@ -49,6 +49,13 @@ bot.command(:rev) do |event|
 
 end
 
+bot.command(:getdb) do |event|
+
+	file = File.open('kekdb.json')
+	event.channel.send_file(file)
+
+end
+
 #save db
 bot.command(:save) do |event|
 
