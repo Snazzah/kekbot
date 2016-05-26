@@ -36,4 +36,4 @@ build/
 .rvmrc
 
 # kekbot
-run.bat
+run.sh
