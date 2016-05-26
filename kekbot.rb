@@ -40,6 +40,15 @@ bot.command(:restart) do |event|
 
 end
 
+#rev - get latest rev + patchnote
+bot.command(:rev) do |event|
+
+	cmd = "git log -n 1"
+	value = `#{cmd}`
+	event << "```#{value}```"
+
+end
+
 #save db
 bot.command(:save) do |event|
 
