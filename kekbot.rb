@@ -44,16 +44,28 @@ end
 bot.command(:rev, channel:"botbox", description:"gets bot's HEAD revision") do |event|
 
 	cmd = "git log -n 1"
-	value = `#{cmd}`
-	event << "```#{value}```"
+	log = `#{cmd}`
+
+	cmd = "git branch"
+	branch = `#{cmd}`
+
+	event <<"Current branch: `" + branch + "`"
+	event << "```#{log}```"
+	event << "**https://github.com/z64/kekbot**"
 
 end
 
 bot.command(:log, channel:"botbox", min_args: 1, description:"gets n many rev logs") do |event, number|
 
 	cmd = "git log --oneline -n " + number
-	value = `#{cmd}`
-	event << "```#{value}```"
+	log = `#{cmd}`
+
+	cmd = "git branch"
+	branch = `#{cmd}`
+
+	event <<"Current branch: `" + branch + "`"
+	event << "```#{log}```"
+	event << "**https://github.com/z64/kekbot**"
 
 end
 
@@ -167,6 +179,8 @@ bot.command(:give, min_args: 2,  description: "awards keks from your stiped to @
 
 	fromUser["stipend"] -= value.to_i
 	toUser["bank"] += value.to_i
+	toUser["currencyReceived"] += value.to_i
+	toUser["karma"] += 1
 
 	event << "**" + fromUser["name"] + "** awarded **" + toUser["name"] + "** with **" + value.to_s + " " + db["currencyName"] + "** :joy: :ok_hand: :fire:"
 
