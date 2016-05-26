@@ -28,7 +28,7 @@ bot.command(:loaddb) do |event|
 	file = File.read('kekdb.json')
 	db = JSON.parse(file)
 
-	event << "Loaded database from **" + db['timestamp'] + "** :D\n"
+	event << "Loaded database from **" + db['timestamp'] + "** :computer:\n"
 
 end
 
@@ -60,17 +60,14 @@ bot.command(:register) do |event|
 	usersdb.each do |x|
 
 		if x['id'] == event.user.id.to_i
-			flag = true
+			event << "You are already registered, young kek."
+			return
 		end
 
 	end
 
-	if flag
-		event << "You are already registered, young kek."
-	else
-		db['users'][db['users'].length] = { "id" => event.user.id, "name" => event.user.name, "bank" => 10, "stipend" => 40, "collectables" => [0] }
-		event << "**Welcome to the KekNet, " + event.user.name + "!**"
-	end
+	db['users'][db['users'].length] = { "id" => event.user.id, "name" => event.user.name, "bank" => 10, "stipend" => 40, "collectables" => [0] }
+	event << "**Welcome to the KekNet, " + event.user.name + "!**"
 
 	save(db)
 	nil
