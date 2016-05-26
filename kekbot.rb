@@ -168,7 +168,7 @@ bot.command(:give, min_args: 2,  description: "awards keks from your stiped to @
 		return
 	end
 
-	if bot.parse_mention(to).id.to_i == 184500867213426688
+	if bot.parse_mention(to).id.to_i == 185442417208590338
 		event << "Wh-... wha.. " + fromUser["name"] + "-senpai...*!*"
 		event << "http://i.imgur.com/nxMsRS5.png"
 		return
@@ -260,14 +260,14 @@ end
 
 #bot.command(:update_avatar) do |event|
 #
-#	#begin
-#	#bot.profile.avatar=(File.new("avatar.jpg"))
-#	#rescue => e
-#	#event << e.inspect
-#	#end
+#	begin
+#	bot.profile.avatar=(File.new("avatar.jpg"))
+#	rescue => e
+#	event << e.inspect
+#	end
 #
-#	avatar = File.new('avatar.jpg')
-#	bot.profile.avatar = avatar
+#	#avatar = File.new('avatar.jpg')
+#	#bot.profile.avatar = avatar
 #
 #end
 
