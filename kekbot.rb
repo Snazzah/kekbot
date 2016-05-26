@@ -6,7 +6,9 @@ bot = Discordrb::Commands::CommandBot.new token: ARGV[0], application_id: 184500
 
 puts "This bot's invite URL is #{bot.invite_url}."
 
+#global things
 db = Hash.new
+devChannel = 184597857414676480
 
 bot.message(with_text: "Ping!") do |event|
 
@@ -14,7 +16,8 @@ bot.message(with_text: "Ping!") do |event|
 
 end
 
-bot.command(:game, min_args: 1, description: "sets bot game") do |event, *game|
+bot.command(:game,  min_args: 1, description: "sets bot game") do |event, *game|
+	if event.channel.id != devChannel then break end
 
 	event.bot.game = game.join(' ')
 	nil
@@ -24,6 +27,7 @@ end
 #DATABASE
 #load db
 bot.command(:loaddb, description: "reloads database") do |event|
+	if event.channel.id != devChannel then break end
 
 	file = File.read('kekdb.json')
 	db = JSON.parse(file)
@@ -34,6 +38,7 @@ end
 
 #restart bot
 bot.command(:restart, description: "restarts the bot") do |event|
+	if event.channel.id != devChannel then break end
 
 	bot.user(120571255635181568).pm("Restart issued.. :wrench:")
 	exit
@@ -41,7 +46,7 @@ bot.command(:restart, description: "restarts the bot") do |event|
 end
 
 #rev - get latest rev + patchnote
-bot.command(:rev, channel:"botbox", description:"gets bot's HEAD revision") do |event|
+bot.command(:rev, description:"gets bot's HEAD revision") do |event|
 
 	cmd = "git log -n 1"
 	log = `#{cmd}`
@@ -55,7 +60,7 @@ bot.command(:rev, channel:"botbox", description:"gets bot's HEAD revision") do |
 
 end
 
-bot.command(:log, channel:"botbox", min_args: 1, description:"gets n many rev logs") do |event, number|
+bot.command(:log, min_args: 1, description:"gets n many rev logs") do |event, number|
 
 	cmd = "git log --oneline -n #{number}"
 	log = `#{cmd}`
@@ -70,6 +75,7 @@ bot.command(:log, channel:"botbox", min_args: 1, description:"gets n many rev lo
 end
 
 bot.command(:getdb, description: "uploads the current databse file") do |event|
+	if event.channel.id != devChannel then break end
 
 	file = File.open('kekdb.json')
 	event.channel.send_file(file)
@@ -78,6 +84,7 @@ end
 
 #save db
 bot.command(:save, description: "force database save") do |event|
+	if event.channel.id != devChannel then break end
 
 	db['timestamp'] = Time.now.to_s
 
@@ -135,6 +142,7 @@ end
 
 #set keks
 bot.command(:setkeks, min_args: 2, description: "sets @user's kek and stipend balance") do |event, mention, bank, stipend|
+	if event.channel.id != devChannel then break end
 
 	usersdb = db['users']
 	usersdb.each do |x|		
@@ -236,6 +244,8 @@ end
 
 #add collectables
 bot.command(:addrare, min_args: 4, description: "adds a rare to the db") do |event, url, value, unlock, *description| 
+	#temporary - only allow :addrare on our private channel.
+	if event.channel.id != 185021357891780608 then break end
 
 	description = description.join(' ')
 
