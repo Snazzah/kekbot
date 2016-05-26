@@ -49,6 +49,14 @@ bot.command(:rev, channel:"botbox", description:"gets bot's HEAD revision") do |
 
 end
 
+bot.command(:log, channel:"botbox", min_args: 1, description:"gets n many rev logs") do |event, number|
+
+	cmd = "git log --oneline -n " + number
+	value = `#{cmd}`
+	event << "```#{value}```"
+
+end
+
 bot.command(:getdb, description: "uploads the current databse file") do |event|
 
 	file = File.open('kekdb.json')
