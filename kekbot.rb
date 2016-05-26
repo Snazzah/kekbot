@@ -49,7 +49,7 @@ bot.command(:rev, channel:"botbox", description:"gets bot's HEAD revision") do |
 	cmd = "git branch"
 	branch = `#{cmd}`
 
-	event <<"Current branch: `" + branch + "`"
+	event <<"Current branch: `#{branch}`"
 	event << "```#{log}```"
 	event << "**https://github.com/z64/kekbot**"
 
@@ -57,13 +57,13 @@ end
 
 bot.command(:log, channel:"botbox", min_args: 1, description:"gets n many rev logs") do |event, number|
 
-	cmd = "git log --oneline -n " + number
+	cmd = "git log --oneline -n #{number}"
 	log = `#{cmd}`
 
 	cmd = "git branch"
 	branch = `#{cmd}`
 
-	event <<"Current branch: `" + branch + "`"
+	event <<"Current branch: `#{branch}`"
 	event << "```#{log}```"
 	event << "**https://github.com/z64/kekbot**"
 
