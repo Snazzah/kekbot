@@ -14,7 +14,7 @@ bot.message(with_text: "Ping!") do |event|
 
 end
 
-bot.command(:game, min_args: 1) do |event, *game|
+bot.command(:game, min_args: 1, description: "sets bot game") do |event, *game|
 
 	event.bot.game = game.join(' ')
 	nil
@@ -23,7 +23,7 @@ end
 
 #DATABASE
 #load db
-bot.command(:loaddb) do |event|
+bot.command(:loaddb, description: "reloads database") do |event|
 
 	file = File.read('kekdb.json')
 	db = JSON.parse(file)
@@ -33,7 +33,7 @@ bot.command(:loaddb) do |event|
 end
 
 #restart bot
-bot.command(:restart) do |event|
+bot.command(:restart, description: "restarts the bot") do |event|
 
 	bot.user(120571255635181568).pm("Restart issued.. :wrench:")
 	exit
@@ -41,7 +41,7 @@ bot.command(:restart) do |event|
 end
 
 #rev - get latest rev + patchnote
-bot.command(:rev) do |event|
+bot.command(:rev, channel:"botbox", description:"gets bot's HEAD revision") do |event|
 
 	cmd = "git log -n 1"
 	value = `#{cmd}`
@@ -49,7 +49,7 @@ bot.command(:rev) do |event|
 
 end
 
-bot.command(:getdb) do |event|
+bot.command(:getdb, description: "uploads the current databse file") do |event|
 
 	file = File.open('kekdb.json')
 	event.channel.send_file(file)
@@ -57,7 +57,7 @@ bot.command(:getdb) do |event|
 end
 
 #save db
-bot.command(:save) do |event|
+bot.command(:save, description: "force database save") do |event|
 
 	db['timestamp'] = Time.now.to_s
 
@@ -68,7 +68,7 @@ bot.command(:save) do |event|
 
 end
 
-bot.command(:register) do |event|
+bot.command(:register, description: "registers new user") do |event|
 
 	flag = false
 
@@ -91,7 +91,7 @@ end
 
 #KEKS
 #get keks
-bot.command(:keks) do |event, mention|
+bot.command(:keks, description: "fetches your balance, or @user's balance") do |event, mention|
 
 	if mention.nil?
 		mention = event.user.id.to_i
@@ -114,7 +114,7 @@ bot.command(:keks) do |event, mention|
 end
 
 #set keks
-bot.command(:setkeks) do |event, mention, bank, stipend|
+bot.command(:setkeks, min_args: 2, description: "sets @user's kek and stipend balance") do |event, mention, bank, stipend|
 
 	usersdb = db['users']
 	usersdb.each do |x|		
@@ -131,7 +131,7 @@ bot.command(:setkeks) do |event, mention, bank, stipend|
 end
 
 #give keks
-bot.command(:give, min_args: 2) do |event, to, value|
+bot.command(:give, min_args: 2,  description: "awards keks from your stiped to @user's dank bank") do |event, to, value|
 		
 	fromUser = getUser(db, event.user.id.to_i)
 	
@@ -168,7 +168,7 @@ end
 
 #COLLECTABLES
 #inspect a collectable
-bot.command(:rare, min_args: 1) do |event, *description| 
+bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who owns it") do |event, *description| 
 
 	description = description.join(' ')
 	user = getUser(db, event.user.id.to_i)
@@ -199,7 +199,7 @@ bot.command(:rare, min_args: 1) do |event, *description|
 end
 
 #list collectables
-bot.command(:rares) do |event|
+bot.command(:rares, description: "list what rares you own") do |event|
 
 	user = getUser(db, event.user.id.to_i)
 
@@ -213,7 +213,7 @@ bot.command(:rares) do |event|
 end
 
 #add collectables
-bot.command(:addrare, min_args: 4) do |event, url, value, unlock, *description| 
+bot.command(:addrare, min_args: 4, description: "adds a rare to the db") do |event, url, value, unlock, *description| 
 
 	description = description.join(' ')
 
