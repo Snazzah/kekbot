@@ -17,7 +17,7 @@ bot.message(with_text: "Ping!") do |event|
 end
 
 bot.command(:game,  min_args: 1, description: "sets bot game") do |event, *game|
-	if event.channel.id != devChannel then break end
+	break unless event.channel.id == devChannel
 
 	event.bot.game = game.join(' ')
 	nil
@@ -27,7 +27,7 @@ end
 #DATABASE
 #load db
 bot.command(:loaddb, description: "reloads database") do |event|
-	if event.channel.id != devChannel then break end
+	break unless event.channel.id == devChannel
 
 	file = File.read('kekdb.json')
 	db = JSON.parse(file)
@@ -38,7 +38,7 @@ end
 
 #restart bot
 bot.command(:restart, description: "restarts the bot") do |event|
-	if event.channel.id != devChannel then break end
+	break unless event.channel.id == devChannel
 
 	bot.user(120571255635181568).pm("Restart issued.. :wrench:")
 	exit
@@ -75,7 +75,7 @@ bot.command(:log, min_args: 1, description:"gets n many rev logs") do |event, nu
 end
 
 bot.command(:getdb, description: "uploads the current databse file") do |event|
-	if event.channel.id != devChannel then break end
+	break unless event.channel.id == devChannel
 
 	file = File.open('kekdb.json')
 	event.channel.send_file(file)
@@ -84,7 +84,7 @@ end
 
 #save db
 bot.command(:save, description: "force database save") do |event|
-	if event.channel.id != devChannel then break end
+	break unless event.channel.id == devChannel
 
 	db['timestamp'] = Time.now.to_s
 
@@ -142,7 +142,7 @@ end
 
 #set keks
 bot.command(:setkeks, min_args: 2, description: "sets @user's kek and stipend balance") do |event, mention, bank, stipend|
-	if event.channel.id != devChannel then break end
+	break unless event.channel.id == devChannel
 
 	usersdb = db['users']
 	usersdb.each do |x|		
