@@ -54,7 +54,7 @@ bot.command(:rev, description:"gets bot's HEAD revision") do |event|
 	cmd = "git branch"
 	branch = `#{cmd}`
 
-	event <<"Current branch: `#{branch}`"
+	event <<"Current branch:\n`#{branch}`"
 	event << "```#{log}```"
 	event << "**https://github.com/z64/kekbot**"
 
