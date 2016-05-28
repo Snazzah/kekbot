@@ -258,19 +258,6 @@ bot.command(:addrare, min_args: 4, description: "adds a rare to the db") do |eve
 
 end
 
-#bot.command(:update_avatar) do |event|
-#
-#	begin
-#	bot.profile.avatar=(File.new("avatar.jpg"))
-#	rescue => e
-#	event << e.inspect
-#	end
-#
-#	#avatar = File.new('avatar.jpg')
-#	#bot.profile.avatar = avatar
-#
-#end
-
 def getUser(db, id)	
 	usersdb = db['users']
 	usersdb.each do |x|
