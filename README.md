@@ -20,7 +20,7 @@ This is a seperate pool of keks that you are given each day (currently capped at
 
 ### Rares
 
-Rares are collectable memes that you can claim or purchase from other users. These aren't your average memes; they are often related to in-jokes in your community - they're special! As of `KekBot V1.X`, all rares are unique and can only be owned by one person at a time, with the exception of the `kekbot` rare, which every new user starts with.
+Rares are collectible memes that you can claim or purchase from other users. These aren't your average memes; they are often related to in-jokes in your community - they're special! As of `KekBot V1.X`, all rares are unique and can only be owned by one person at a time, with the exception of the `kekbot` rare, which every new user starts with.
 
 You can check your rare inventory with `.rares`. You can view a specific rare with `.rare [description]`. 
 
@@ -34,7 +34,7 @@ KekBot's current schema:
 {
   "timestamp": "2016-05-26 16:23:15 -0400",
   "netTraded": 60,
-  "collectablesName": "rare",
+  "collectiblesName": "rare",
   "currencyName": "keks",
   "users": [
     {
@@ -65,7 +65,7 @@ KekBot's current schema:
 
 Some not-so obvious things about this db:
 
-- `netTraded` is a counter for the total number of `currency` traded, across all users, to date. This is used with `"collectables" : [ .. "unlock": value ..`  and will make more rares become available once `netTraded` reaches this threshhold. KekBot will push out a notification when new rares become available..
+- `netTraded` is a counter for the total number of `currency` traded, across all users, to date. This is used with `"collectibles" : [ .. "unlock": value ..`  and will make more rares become available once `netTraded` reaches this threshhold. KekBot will push out a notification when new rares become available..
 
 - `currencyReceived`; we sperately track how many of `currency` the user has recieved to date. This is for a future feature for `KekBot v2.X`.
 
