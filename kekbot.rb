@@ -97,8 +97,6 @@ end
 
 bot.command(:register, description: "registers new user") do |event|
 
-	flag = false
-
 	usersdb = db['users']
 	usersdb.each do |x|
 
