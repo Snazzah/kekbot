@@ -217,7 +217,7 @@ bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who 
 				event << "`" + description + "` is a claimed " + db["collectablesName"] + "! :eyes:"
 			else
 				event << "`" + description + "` is an unclaimed " + db["collectablesName"] + "! :eyes:"
-				event << "Use `.claim " + x["description"] + "` to claim this " + db["collectablesName"] + " for: **" + x["value"] + " " + db["currencyName"] + "!**"
+				event << "Use `.claim " + x["description"] + "` to claim this " + db["collectablesName"] + " for: **" + x["value"].to_s + " " + db["currencyName"] + "!**"
 				event << x["url"]
 			end
 			return
@@ -271,6 +271,35 @@ bot.command(:addrare, min_args: 4, description: "adds a rare to the db") do |eve
 
 end
 
+#claim collectable
+bot.command(:claim, description: "claims an unclaimed rare") do |event, *description|
+
+	description = description.join(' ')
+	collectableIndex = getCollectableIndex(db, description)
+	collectable = db["collectables"][collectableIndex]
+	user = getUser(db, event.user.id)
+
+	if collectable["claimed"]
+			event << "`#{description}` is already claimed.. :eyes:"
+			return
+	else
+
+		if user["bank"] < collectable["value"]
+			event << "Not enough **#{db["currencyName"]}** in your **Dank Bank**.. :eyes:"
+			return
+		end
+
+		user["bank"] -= collectable["value"]
+		collectable["claimed"] = true
+		user["collectables"][user["collectables"].length] = collectableIndex#
+		event << "`#{description}` has been added to your inventory! :money_with_wings:"
+
+	end
+
+	save(db)
+	nil
+end
+
 def save(db)
 
 	db['timestamp'] = Time.now.to_s
@@ -288,6 +317,15 @@ def getUser(db, id)
                end
        end
        return nil
+end
+
+def getCollectableIndex(db, description)
+	db["collectables"].each_with_index do |x, index|
+		if x["description"] == description
+			return index
+		end
+	end
+	return nil
 end
 
 bot.run :async
