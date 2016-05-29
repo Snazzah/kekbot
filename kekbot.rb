@@ -109,7 +109,7 @@ bot.command(:register, description: "registers new user") do |event|
 
 	end
 
-	db['users'][db['users'].length] = { "id" => event.user.id, "name" => event.user.name, "bank" => 10, "stipend" => 40, "collectables" => [0] }
+	db['users'][db['users'].length] = { "id" => event.user.id, "name" => event.user.name, "bank" => 10, "stipend" => 40, "collectibles" => [0] }
 	event << "**Welcome to the KekNet, " + event.user.name + "!**"
 
 	save(db)
@@ -197,57 +197,57 @@ bot.command(:give, min_args: 2,  description: "awards keks from your stiped to @
 end
 
 #COLLECTABLES
-#inspect a collectable
+#inspect a collectible
 bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who owns it") do |event, *description| 
 
 	description = description.join(' ')
 
 	user = getUser(db, event.user.id.to_i)
-	user["collectables"].each do |x|
-		if db["collectables"][x]["description"] == description
+	user["collectibles"].each do |x|
+		if db["collectibles"][x]["description"] == description
 			event << user["name"] + "'s `" + description + "`: "
-			event << db["collectables"][x]["url"]
+			event << db["collectibles"][x]["url"]
 			return
 		end
 	end
 
-	db["collectables"].each do |x|
+	db["collectibles"].each do |x|
 		if x["description"] == description
 			if x["claimed"]
-				event << "`" + description + "` is a claimed " + db["collectablesName"] + "! :eyes:"
+				event << "`" + description + "` is a claimed " + db["collectiblesName"] + "! :eyes:"
 			else
-				event << "`" + description + "` is an unclaimed " + db["collectablesName"] + "! :eyes:"
-				event << "Use `.claim " + x["description"] + "` to claim this " + db["collectablesName"] + " for: **" + x["value"].to_s + " " + db["currencyName"] + "!**"
+				event << "`" + description + "` is an unclaimed " + db["collectiblesName"] + "! :eyes:"
+				event << "Use `.claim " + x["description"] + "` to claim this " + db["collectiblesName"] + " for: **" + x["value"].to_s + " " + db["currencyName"] + "!**"
 				event << x["url"]
 			end
 			return
 		end
 	end
 
-	event << "The " + db["collectablesName"] + " `" + description + "` doesn't exist, or isn't in your inventory."
+	event << "The " + db["collectiblesName"] + " `" + description + "` doesn't exist, or isn't in your inventory."
 
 	nil
 end
 
-#list collectables
+#list collectibles
 bot.command(:rares, description: "list what rares you own") do |event|
 
 	user = getUser(db, event.user.id.to_i)
 
-	event << user["name"] + "'s `"+ user["collectables"].length.to_s + "` " + db["collectablesName"] + "s\n"
+	event << user["name"] + "'s `"+ user["collectibles"].length.to_s + "` " + db["collectiblesName"] + "s\n"
 
-	user["collectables"].each do |x|
-		event << "`" + db["collectables"][x]["description"] + "`\n"
+	user["collectibles"].each do |x|
+		event << "`" + db["collectibles"][x]["description"] + "`\n"
 	end	
 
 	nil
 end
 
-#list all collectables
+#list all collectibles
 bot.command(:catalog, description: "lists all rares in db") do |event|
 	break unless event.channel.id == devChannel
 
-	db["collectables"].each do |x|
+	db["collectibles"].each do |x|
 		event.respond("`" + x["description"] + " value:" + x["value"].to_s + "`")
 		sleep 0.5
 	end
@@ -255,14 +255,14 @@ bot.command(:catalog, description: "lists all rares in db") do |event|
 	nil
 end
 
-#add collectables
+#add collectibles
 bot.command(:addrare, min_args: 4, description: "adds a rare to the db") do |event, url, value, unlock, *description| 
 	#temporary - only allow :addrare on our private channel.
 	if event.channel.id != 185021357891780608 then break end
 
 	description = description.join(' ')
 
-	db["collectables"][db["collectables"].length] = { "description" => description, "url" => url, "claimed" => false, "unlock" => unlock.to_i, "value" => value.to_i }
+	db["collectibles"][db["collectibles"].length] = { "description" => description, "url" => url, "claimed" => false, "unlock" => unlock.to_i, "value" => value.to_i }
 
 	event << "Added rare: `#{description}`"
 
@@ -271,27 +271,27 @@ bot.command(:addrare, min_args: 4, description: "adds a rare to the db") do |eve
 
 end
 
-#claim collectable
+#claim collectible
 bot.command(:claim, description: "claims an unclaimed rare") do |event, *description|
 
 	description = description.join(' ')
-	collectableIndex = getCollectableIndex(db, description)
-	collectable = db["collectables"][collectableIndex]
+	collectibleIndex = getCollectibleIndex(db, description)
+	collectible = db["collectibles"][collectibleIndex]
 	user = getUser(db, event.user.id)
 
-	if collectable["claimed"]
+	if collectible["claimed"]
 			event << "`#{description}` is already claimed.. :eyes:"
 			return
 	else
 
-		if user["bank"] < collectable["value"]
+		if user["bank"] < collectible["value"]
 			event << "Not enough **#{db["currencyName"]}** in your **Dank Bank**.. :eyes:"
 			return
 		end
 
-		user["bank"] -= collectable["value"]
-		collectable["claimed"] = true
-		user["collectables"][user["collectables"].length] = collectableIndex#
+		user["bank"] -= collectible["value"]
+		collectible["claimed"] = true
+		user["collectibles"][user["collectibles"].length] = collectibleIndex#
 		event << "`#{description}` has been added to your inventory! :money_with_wings:"
 
 	end
@@ -319,8 +319,8 @@ def getUser(db, id)
        return nil
 end
 
-def getCollectableIndex(db, description)
-	db["collectables"].each_with_index do |x, index|
+def getCollectibleIndex(db, description)
+	db["collectibles"].each_with_index do |x, index|
 		if x["description"] == description
 			return index
 		end
