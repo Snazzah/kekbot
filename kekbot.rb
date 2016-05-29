@@ -107,7 +107,7 @@ bot.command(:register, description: "registers new user") do |event|
 
 	end
 
-	db['users'][db['users'].length] = { "id" => event.user.id, "name" => event.user.name, "bank" => 10, "stipend" => 40, "collectibles" => [0] }
+	db['users'][db['users'].length] = { "id" => event.user.id, "name" => event.user.name, "bank" => 10, "currencyReceived" => 0, "karma" => 0, "stipend" => 40, "collectibles" => [0] }
 
 	event << "**Welcome to the KekNet, #{event.user.name}!**"
 	event << "Use `.help` for a list of commands."
@@ -159,17 +159,19 @@ bot.command(:setkeks, min_args: 2, description: "sets @user's kek and stipend ba
 	nil
 end
 
+bot.command(:idtest) { |e,u| puts bot.parse_mention(u).id }
+
 #give keks
-bot.command(:give, min_args: 2,  description: "awards keks from your stiped to @user's dank bank") do |event, to, value|
+bot.command(:give, min_args: 2,  description: "give currency") do |event, to, value|
 		
 	fromUser = getUser(db, event.user.id.to_i)
-	
+
 	if (fromUser["stipend"] - value.to_i) < 0
 		event << "You do not have enough #{db["currencyName"]} to make this transaction. :disappointed_relieved:"
 		return
 	end
 
-	if bot.parse_mention(to).id.to_i == 185442417208590338
+	if bot.parse_mention(to).id == 185442417208590338
 		event << "Wh-... wha.. #{fromUser["name"]}-senpai...*!*"
 		event << "http://i.imgur.com/nxMsRS5.png"
 		return
@@ -273,7 +275,7 @@ bot.command(:addrare, min_args: 4, description: "adds a rare to the db") do |eve
 end
 
 #claim collectible
-bot.command(:claim, description: "claims an unclaimed rare") do |event, *description|
+bot.command(:claim, min_args: 1, description: "claims an unclaimed rare") do |event, *description|
 
 	description = description.join(' ')
 	collectibleIndex = getCollectibleIndex(db, description)
