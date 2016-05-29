@@ -201,6 +201,7 @@ end
 bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who owns it") do |event, *description| 
 
 	description = description.join(' ')
+
 	user = getUser(db, event.user.id.to_i)
 	user["collectables"].each do |x|
 		if db["collectables"][x]["description"] == description
@@ -242,6 +243,18 @@ bot.command(:rares, description: "list what rares you own") do |event|
 	nil
 end
 
+#list all collectables
+bot.command(:catalog, description: "lists all rares in db") do |event|
+	break unless event.channel.id == devChannel
+
+	db["collectables"].each do |x|
+		event.respond("`" + x["description"] + " value:" + x["value"].to_s + "`")
+		sleep 0.5
+	end
+
+	nil
+end
+
 #add collectables
 bot.command(:addrare, min_args: 4, description: "adds a rare to the db") do |event, url, value, unlock, *description| 
 	#temporary - only allow :addrare on our private channel.
@@ -258,16 +271,6 @@ bot.command(:addrare, min_args: 4, description: "adds a rare to the db") do |eve
 
 end
 
-def getUser(db, id)	
-	usersdb = db['users']
-	usersdb.each do |x|
-		if x['id'] == id
-			return x
-		end
-	end
-	return nil
-end
-
 def save(db)
 
 	db['timestamp'] = Time.now.to_s
@@ -275,6 +278,16 @@ def save(db)
 	file = File.open("kekdb.json", "w")
 	file.write(JSON.generate(db))
 
+end
+
+def getUser(db, id)
+       usersdb = db['users']
+       usersdb.each do |x|
+               if x['id'] == id
+                       return x
+               end
+       end
+       return nil
 end
 
 bot.run :async
