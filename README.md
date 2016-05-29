@@ -54,8 +54,8 @@ KekBot's current schema:
       "description": "strawberry",
       "url": "http://i.imgur.com/LY8SEMF.png",
       "claimed": true,
-      "unlock": "0",
-      "value": "10"
+      "unlock": 0,
+      "value": 10
     }
   ]
 }
