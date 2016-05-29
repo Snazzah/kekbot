@@ -32,7 +32,7 @@ bot.command(:loaddb, description: "reloads database") do |event|
 	file = File.read('kekdb.json')
 	db = JSON.parse(file)
 
-	event << "Loaded database from **" + db['timestamp'] + "** :computer:\n"
+	event << "Loaded database from **#{db['timestamp']}** :computer:\n"
 
 end
 
@@ -110,7 +110,10 @@ bot.command(:register, description: "registers new user") do |event|
 	end
 
 	db['users'][db['users'].length] = { "id" => event.user.id, "name" => event.user.name, "bank" => 10, "stipend" => 40, "collectibles" => [0] }
-	event << "**Welcome to the KekNet, " + event.user.name + "!**"
+
+	event << "**Welcome to the KekNet, #{event.user.name}!**"
+	event << "Use `.help` for a list of commands."
+	event << "For more info: **https://github.com/z64/kekbot/blob/master/README.md**"
 
 	save(db)
 	nil
@@ -130,8 +133,8 @@ bot.command(:keks, description: "fetches your balance, or @user's balance") do |
 	usersdb.each do |x|		
 
 		if x['id'].to_i == mention
-			event << x['name'] + "\'s Dank Bank balance: **" + x['bank'].to_s + " " + db['currencyName'] + "**"
-			event << "Stipend balance: **" + x['stipend'].to_s + " " + db['currencyName'] + "**"
+			event << "#{x['name']}'s Dank Bank balance: **#{x['bank'].to_s} #{db['currencyName']}**"
+			event << "Stipend balance: **#{x['stipend'].to_s} #{db['currencyName']}**"
 		end
 
 	end
@@ -164,12 +167,12 @@ bot.command(:give, min_args: 2,  description: "awards keks from your stiped to @
 	fromUser = getUser(db, event.user.id.to_i)
 	
 	if (fromUser["stipend"] - value.to_i) < 0
-		event << "You do not have enough " + db["currencyName"] + " to make this transaction. :disappointed_relieved:"
+		event << "You do not have enough #{db["currencyName"]} to make this transaction. :disappointed_relieved:"
 		return
 	end
 
 	if bot.parse_mention(to).id.to_i == 185442417208590338
-		event << "Wh-... wha.. " + fromUser["name"] + "-senpai...*!*"
+		event << "Wh-... wha.. #{fromUser["name"]}-senpai...*!*"
 		event << "http://i.imgur.com/nxMsRS5.png"
 		return
 	end
@@ -190,7 +193,7 @@ bot.command(:give, min_args: 2,  description: "awards keks from your stiped to @
 	toUser["currencyReceived"] += value.to_i
 	toUser["karma"] += 1
 
-	event << "**" + fromUser["name"] + "** awarded **" + toUser["name"] + "** with **" + value.to_s + " " + db["currencyName"] + "** :joy: :ok_hand: :fire:"
+	event << "**#{fromUser["name"]}** awarded **#{toUser["name"]}** with **#{value.to_s} #{db["currencyName"]}** :joy: :ok_hand: :fire:"
 
 	save(db)
 	nil
@@ -205,7 +208,7 @@ bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who 
 	user = getUser(db, event.user.id.to_i)
 	user["collectibles"].each do |x|
 		if db["collectibles"][x]["description"] == description
-			event << user["name"] + "'s `" + description + "`: "
+			event << "#{user["name"]}\'s `#{description}`: "
 			event << db["collectibles"][x]["url"]
 			return
 		end
@@ -214,17 +217,17 @@ bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who 
 	db["collectibles"].each do |x|
 		if x["description"] == description
 			if x["claimed"]
-				event << "`" + description + "` is a claimed " + db["collectiblesName"] + "! :eyes:"
+				event << "`#{description}` is a claimed #{db["collectiblesName"]}! :eyes:"
 			else
-				event << "`" + description + "` is an unclaimed " + db["collectiblesName"] + "! :eyes:"
-				event << "Use `.claim " + x["description"] + "` to claim this " + db["collectiblesName"] + " for: **" + x["value"].to_s + " " + db["currencyName"] + "!**"
+				event << "`#{description}` is an unclaimed #{db["collectiblesName"]}! :eyes:"
+				event << "Use `.claim #{x["description"]}` to claim this #{db["collectiblesName"]} for: **#{x["value"].to_s} #{db["currencyName"]}!**"
 				event << x["url"]
 			end
 			return
 		end
 	end
 
-	event << "The " + db["collectiblesName"] + " `" + description + "` doesn't exist, or isn't in your inventory."
+	event << "The #{db["collectiblesName"]} `#{description}` doesn't exist, or isn't in your inventory."
 
 	nil
 end
@@ -234,10 +237,10 @@ bot.command(:rares, description: "list what rares you own") do |event|
 
 	user = getUser(db, event.user.id.to_i)
 
-	event << user["name"] + "'s `"+ user["collectibles"].length.to_s + "` " + db["collectiblesName"] + "s\n"
+	event << "#{user["name"]}\'s `#{user["collectibles"].length.to_s}` #{db["collectiblesName"]}s:\n"
 
 	user["collectibles"].each do |x|
-		event << "`" + db["collectibles"][x]["description"] + "`\n"
+		event << "`#{db["collectibles"][x]["description"]}`"
 	end	
 
 	nil
@@ -248,7 +251,7 @@ bot.command(:catalog, description: "lists all rares in db") do |event|
 	break unless event.channel.id == devChannel
 
 	db["collectibles"].each do |x|
-		event.respond("`" + x["description"] + " value:" + x["value"].to_s + "`")
+		event.respond("`#{x["description"]} value: #{x["value"].to_s}`")
 		sleep 0.5
 	end
 
