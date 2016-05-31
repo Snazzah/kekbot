@@ -334,18 +334,6 @@ bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, 
 
 	save(db)
 	nil
-
-end
-
-bot.command(:await) do |event|
-	event << 'Await created'
-	variable = 5
-	event.user.await(:test, with_text: 'trigger') do |subevent|
-		subevent.respond("Await triggered")
-		subevent.respond(variable)
-		true
-	end
-	nil
 end
 
 def save(db)
