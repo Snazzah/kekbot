@@ -282,6 +282,11 @@ bot.command(:claim, min_args: 1, description: "claims an unclaimed rare") do |ev
 	collectible = db["collectibles"][collectibleIndex]
 	user = getUser(db, event.user.id)
 
+	if collectibleIndex.nil?
+		event << "This rare does not exist.. :eyes:"
+		return
+	end
+
 	if collectible["claimed"]
 			event << "`#{description}` is already claimed.. :eyes:"
 			return
@@ -338,27 +343,52 @@ bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, 
 	end
 
 	#process sale
-	event << "#{seller_db["name"]} wants to sell `#{collectible["description"]}` to #{buyer_db["name"]} for #{amount} #{db["currencyName"]}!"
+	event << "#{seller_db["name"]} wants to sell `#{collectible["description"]}` to #{buyer_db["name"]} for #{amount} #{db["currencyName"]}! :incoming_envelope:"
+	event << "#{buyer}, type `accept` or `reject`"
 
-	bot.parse_mention(buyer).await(:accept, with_text: "accept") do |subevent|
+	bot.parse_mention(buyer).await(:accept) do |subevent, test|
 
-		subevent.respond("#{buyer_db['name']} accepted your offer, #{event.user.mention}!")
+		continue = false
 
-		seller_db["collectibles"].each_with_index do |x, index|
-			if x == collectibleIndex
-				seller_db["collectibles"].delete_at(index)
+		if subevent.message.content == "accept"
+
+			#users balance could have changed since sale created - double check we can afford it
+			if amount > buyer_db["bank"]
+				subevent.respond("#{buyer_db["name"]} can no longer afford that sale.. :eyes:")
+			else
+
+				subevent.respond("#{buyer_db['name']} accepted your offer, #{event.user.mention}!")
+
+				seller_db["collectibles"].each_with_index do |x, index|
+					if x == collectibleIndex
+						seller_db["collectibles"].delete_at(index)
+					end
+				end
+
+				buyer_db["collectibles"][buyer_db["collectibles"].length] = collectibleIndex
+
+				buyer_db["bank"] -= amount
+				seller_db["bank"] += amount
+				save(db)
+
 			end
+
+			true
+
+		else
+
+			if subevent.message.content == "reject"
+
+				subevent.respond("#{buyer_db["name"]} has rejected your offer, #{event.user.mention} :x:")
+				true
+
+			end
+
 		end
 
-		buyer_db["collectibles"][buyer_db["collectibles"].length] = collectibleIndex
+		#false
 
-		buyer_db["bank"] -= amount
-		seller_db["bank"] += amount
-
-		true
 	end
-
-	save(db)
 	nil
 end
 
