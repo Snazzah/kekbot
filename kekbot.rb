@@ -338,7 +338,7 @@ bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, 
 	end
 
 	#process sale
-	event << "Creating sale of `#{collectible["description"]}` between #{buyer_db["name"]} and #{seller_db["name"]} for #{amount}"
+	event << "#{seller_db["name"]} wants to sell `#{collectible["description"]}` to #{buyer_db["name"]} for #{amount} #{db["currencyName"]}!"
 
 	bot.parse_mention(buyer).await(:accept, with_text: "accept") do |subevent|
 
