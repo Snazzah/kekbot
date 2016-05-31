@@ -259,13 +259,13 @@ bot.command(:catalog, description: "lists all rares in db") do |event|
 end
 
 #add collectibles
-bot.command(:addrare, min_args: 4, description: "adds a rare to the db") do |event, url, value, unlock, *description| 
+bot.command(:addrare, min_args: 3, description: "adds a rare to the db") do |event, url, value, *description| 
 	#temporary - only allow :addrare on our private channel.
 	if event.channel.id != 185021357891780608 then break end
 
 	description = description.join(' ')
 
-	db["collectibles"][db["collectibles"].length] = { "description" => description, "url" => url, "claimed" => false, "unlock" => unlock.to_i, "value" => value.to_i }
+	db["collectibles"][db["collectibles"].length] = { "description" => description, "url" => url, "claimed" => false, "unlock" => 0, "value" => value.to_i }
 
 	event << "Added rare: `#{description}`"
 
