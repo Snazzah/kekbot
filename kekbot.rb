@@ -9,6 +9,42 @@ puts "This bot's invite URL is #{bot.invite_url}."
 db = Hash.new
 devChannel = 184597857414676480
 
+bot.ready do |event|
+
+	file = File.read('kekdb.json')
+	db = JSON.parse(file)
+
+	bot.send_message(devChannel, "Bot ready :raised_hand:")
+
+	cmd = "git log -n 1"
+	log = `#{cmd}`
+
+	cmd = "git branch | grep \"*\""
+	branch = `#{cmd}`
+
+	bot.send_message(devChannel,"**Current Revision**\n```branch: #{branch}\n#{log}```")
+	sleep 1
+
+	bot.send_message(devChannel, "Loaded database from **" + db['timestamp'] + "** :file_folder: ")
+	bot.send_message(devChannel, "**Active servers** :computer:")
+
+	bot.servers.each do |x|
+		bot.send_message(devChannel, "```name: #{x[1].name}\nowner: #{x[1].owner.username}\nmembers: #{x[1].member_count}```")
+		sleep 0.5
+	end
+
+end
+
+#restart bot
+bot.command(:restart, description: "restarts the bot") do |event|
+	break unless event.channel.id == devChannel
+
+	bot.send_message(devChannel,"Restart issued.. :wrench:")
+	bot.stop
+	exit
+
+end
+
 bot.message(with_text: "Ping!") do |event|
 
 	event.respond 'Pong! :wink:'
@@ -32,15 +68,6 @@ bot.command(:loaddb, description: "reloads database") do |event|
 	db = JSON.parse(file)
 
 	event << "Loaded database from **#{db['timestamp']}** :computer:\n"
-
-end
-
-#restart bot
-bot.command(:restart, description: "restarts the bot") do |event|
-	break unless event.channel.id == devChannel
-
-	bot.user(120571255635181568).pm("Restart issued.. :wrench:")
-	exit
 
 end
 
@@ -419,12 +446,4 @@ def getCollectibleIndex(db, description)
 	return nil
 end
 
-bot.run :async
-
-	file = File.read('kekdb.json')
-	db = JSON.parse(file)
-
-	bot.user(120571255635181568).pm("Loaded database from **" + db['timestamp'] + "** :computer:")
-	bot.user(120571255635181568).pm("Servers: ```" + bot.servers.to_s + "```")
-
-bot.sync
+bot.run
