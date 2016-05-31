@@ -8,6 +8,7 @@ puts "This bot's invite URL is #{bot.invite_url}."
 #global things
 db = Hash.new
 devChannel = 184597857414676480
+version = "ALPHA"
 
 bot.ready do |event|
 
@@ -15,6 +16,8 @@ bot.ready do |event|
 	db = JSON.parse(file)
 
 	bot.send_message(devChannel, "Bot ready :raised_hand:")
+
+	event.bot.game = "#{bot.profile.name} #{version}"
 
 	cmd = "git log -n 1"
 	log = `#{cmd}`
@@ -26,8 +29,9 @@ bot.ready do |event|
 	sleep 1
 
 	bot.send_message(devChannel, "Loaded database from **" + db['timestamp'] + "** :file_folder: ")
-	bot.send_message(devChannel, "**Active servers** :computer:")
+	sleep 1
 
+	bot.send_message(devChannel, "**Active servers** :computer:")
 	bot.servers.each do |x|
 		bot.send_message(devChannel, "```name: #{x[1].name}\nowner: #{x[1].owner.username}\nmembers: #{x[1].member_count}```")
 		sleep 0.5
