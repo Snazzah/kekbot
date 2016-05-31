@@ -15,9 +15,9 @@ bot.ready do |event|
 	file = File.read('kekdb.json')
 	db = JSON.parse(file)
 
-	bot.send_message(devChannel, "Bot ready :raised_hand:")
-
-	event.bot.game = "#{bot.profile.name} #{version}"
+	cmd = "git log --pretty=\"%h\" -n 1"
+	rev = `#{cmd}`
+	event.bot.game = "#{version} #{rev.strip}"
 
 	cmd = "git log -n 1"
 	log = `#{cmd}`
@@ -37,6 +37,8 @@ bot.ready do |event|
 		sleep 0.5
 	end
 
+	bot.send_message(devChannel, "**Bot ready!** :raised_hand:")
+
 end
 
 #restart bot
@@ -55,7 +57,7 @@ bot.message(with_text: "Ping!") do |event|
 
 end
 
-bot.command(:game,  min_args: 1, description: "sets bot game") do |event, *game|
+bot.command(:game, description: "sets bot game") do |event, *game|
 	break unless event.channel.id == devChannel
 
 	event.bot.game = game.join(' ')
@@ -92,7 +94,7 @@ end
 
 bot.command(:log, min_args: 1, description:"gets n many rev logs") do |event, number|
 
-	cmd = "git log --oneline -n #{number}"
+	cmd = "git log --pretty=format:\"%h - %an, %ar : %s\" -n #{number}"
 	log = `#{cmd}`
 
 	cmd = "git branch"
@@ -422,6 +424,16 @@ bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, 
 	nil
 end
 
+bot.command(:eval, help_available: false) do |event, *code|
+  break unless event.user.id == 120571255635181568 # Replace number with your ID
+
+  begin
+    eval code.join(' ')
+  rescue
+    "An error occured 😞"
+  end
+end
+
 def save(db)
 
 	db['timestamp'] = Time.now.to_s
@@ -433,8 +445,9 @@ end
 
 def getUser(db, id)
        usersdb = db['users']
-       usersdb.each do |x|
+       usersdb.each_with_index do |x,index|
                if x['id'] == id
+                       #return [index, x]
                        return x
                end
        end
