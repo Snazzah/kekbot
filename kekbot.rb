@@ -15,6 +15,9 @@ bot.ready do |event|
 	file = File.read('kekdb.json')
 	db = JSON.parse(file)
 
+	bot.send_message(devChannel, "Loaded database from **" + db['timestamp'] + "** :file_folder: ")
+	sleep 1
+
 	cmd = "git log --pretty=\"%h\" -n 1"
 	rev = `#{cmd}`
 	event.bot.game = "#{version} #{rev.strip}"
@@ -26,9 +29,6 @@ bot.ready do |event|
 	branch = `#{cmd}`
 
 	bot.send_message(devChannel,"**Current Revision**\n```branch: #{branch}\n#{log}```")
-	sleep 1
-
-	bot.send_message(devChannel, "Loaded database from **" + db['timestamp'] + "** :file_folder: ")
 	sleep 1
 
 	bot.send_message(devChannel, "**Active servers** :computer:")
