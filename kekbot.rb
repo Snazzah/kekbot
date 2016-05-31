@@ -305,6 +305,7 @@ end
 
 bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, amount, *description|
 
+	#setup
 	amount = amount.to_i
 	buyer_db = getUser(db, event.message.mentions.at(0).id)
 	seller_db = getUser(db, event.user.id)
@@ -312,10 +313,31 @@ bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, 
 	collectibleIndex = getCollectibleIndex(db, description)
 	collectible = db["collectibles"][collectibleIndex]
 
-	#debug
-	#event << buyer_db
-	#event << seller_db
+	#checks
+	if collectibleIndex.nil?
+		event << "This #{db["collectiblesName"]} does not exist.. :eyes:"
+		return
+	end
 
+	if amount > buyer_db["bank"]
+		event << "#{buyer_db["name"]} can not afford that sale.. :eyes:"
+		return
+	end
+
+	#need a function to clean up below
+	hasCollectible = false
+	seller_db["collectibles"].each do |x|
+		if x == collectibleIndex
+			hasCollectible = true
+		end
+	end
+
+	if !hasCollectible
+		event << "You don't have this #{db["collectiblesName"]}.. :eyes:"
+		return
+	end
+
+	#process sale
 	event << "Creating sale of `#{collectible["description"]}` between #{buyer_db["name"]} and #{seller_db["name"]} for #{amount}"
 
 	bot.parse_mention(buyer).await(:accept, with_text: "accept") do |subevent|
@@ -324,7 +346,7 @@ bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, 
 
 		seller_db["collectibles"].each_with_index do |x, index|
 			if x == collectibleIndex
-				seller_db["collectibles"].delete(index)
+				seller_db["collectibles"].delete_at(index)
 			end
 		end
 
