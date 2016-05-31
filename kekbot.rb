@@ -305,6 +305,7 @@ end
 
 bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, amount, *description|
 
+	amount = amount.to_i
 	buyer_db = getUser(db, event.message.mentions.at(0).id)
 	seller_db = getUser(db, event.user.id)
 	description = description.join(' ')
@@ -328,6 +329,9 @@ bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, 
 		end
 
 		buyer_db["collectibles"][buyer_db["collectibles"].length] = collectibleIndex
+
+		buyer_db["bank"] -= amount
+		seller_db["bank"] += amount
 
 		true
 	end
