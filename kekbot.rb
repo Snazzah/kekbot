@@ -303,6 +303,51 @@ bot.command(:claim, min_args: 1, description: "claims an unclaimed rare") do |ev
 	nil
 end
 
+bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, amount, *description|
+
+	buyer_db = getUser(db, event.message.mentions.at(0).id)
+	seller_db = getUser(db, event.user.id)
+	description = description.join(' ')
+	collectibleIndex = getCollectibleIndex(db, description)
+	collectible = db["collectibles"][collectibleIndex]
+
+	#debug
+	#event << buyer_db
+	#event << seller_db
+
+	event << "Creating sale of `#{collectible["description"]}` between #{buyer_db["name"]} and #{seller_db["name"]} for #{amount}"
+
+	bot.parse_mention(buyer).await(:accept, with_text: "accept") do |subevent|
+
+		subevent.respond("#{buyer_db['name']} accepted your offer, #{event.user.mention}!")
+
+		seller_db["collectibles"].each_with_index do |x, index|
+			if x == collectibleIndex
+				seller_db["collectibles"].delete(index)
+			end
+		end
+
+		buyer_db["collectibles"][buyer_db["collectibles"].length] = collectibleIndex
+
+		true
+	end
+
+	save(db)
+	nil
+
+end
+
+bot.command(:await) do |event|
+	event << 'Await created'
+	variable = 5
+	event.user.await(:test, with_text: 'trigger') do |subevent|
+		subevent.respond("Await triggered")
+		subevent.respond(variable)
+		true
+	end
+	nil
+end
+
 def save(db)
 
 	db['timestamp'] = Time.now.to_s
@@ -336,6 +381,7 @@ bot.run :async
 	file = File.read('kekdb.json')
 	db = JSON.parse(file)
 
-	bot.user(120571255635181568).pm("Loaded database from **" + db['timestamp'] + "** :computer:\n")
+	bot.user(120571255635181568).pm("Loaded database from **" + db['timestamp'] + "** :computer:")
+	bot.user(120571255635181568).pm("Servers: ```" + bot.servers.to_s + "```")
 
 bot.sync
