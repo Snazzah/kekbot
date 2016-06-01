@@ -222,6 +222,7 @@ bot.command(:give, min_args: 2,  description: "give currency") do |event, to, va
 	toUser["bank"] += value.to_i
 	toUser["currencyReceived"] += value.to_i
 	toUser["karma"] += 1
+	db["netTraded"] += value.to_i
 
 	event << "**#{fromUser["name"]}** awarded **#{toUser["name"]}** with **#{value.to_s} #{db["currencyName"]}** :joy: :ok_hand: :fire:"
 
@@ -412,6 +413,7 @@ bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, 
 
 				buyer_db["bank"] -= amount
 				seller_db["bank"] += amount
+				db["netTraded"] += amount
 				save(db)
 
 			end
@@ -445,6 +447,7 @@ bot.command(:eval, help_available: false) do |event, *code|
   end
 end
 
+#FUNCTIONS
 def save(db)
 
 	db['timestamp'] = Time.now.to_s
