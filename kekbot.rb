@@ -121,7 +121,7 @@ bot.command(:save, description: "force database save") do |event|
 	db['timestamp'] = Time.now.to_s
 
 	file = File.open("kekdb.json", "w")
-	file.write(JSON.generate(db))
+	file.write(JSON.pretty_generate(db))
 
 	event << "**You have saved the keks..** :pray:"
 
@@ -453,7 +453,7 @@ def save(db)
 	db['timestamp'] = Time.now.to_s
 
 	file = File.open("kekdb.json", "w")
-	file.write(JSON.generate(db))
+	file.write(JSON.pretty_generate(db))
 
 end
 
