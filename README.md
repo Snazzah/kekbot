@@ -85,6 +85,7 @@ Programmed by Lune (z64)
 Content Contributors:
 ```
 Aeroxyl
+Paper
 Skudfuddle
 TODOKEK
 ```
