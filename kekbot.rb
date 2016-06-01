@@ -191,8 +191,6 @@ bot.command(:setkeks, min_args: 2, description: "sets @user's kek and stipend ba
 	nil
 end
 
-bot.command(:idtest) { |e,u| puts bot.parse_mention(u).id }
-
 #give keks
 bot.command(:give, min_args: 2,  description: "give currency") do |event, to, value|
 		
@@ -229,6 +227,19 @@ bot.command(:give, min_args: 2,  description: "give currency") do |event, to, va
 
 	save(db)
 	nil
+end
+
+bot.command(:setstipend, min_args: 1, description: "sets all users stipend values") do |event, value|
+	break unless event.channel.id == devChannel
+
+	value = value.to_i
+
+	db["users"].each do |x|
+		x["stipend"] = value
+	end
+
+	event << "All stipends set to `#{value.to_s}`"
+
 end
 
 #COLLECTABLES
