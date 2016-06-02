@@ -1,1 +1,516 @@
-{"timestamp":"2016-06-01 03:19:12 -0400","netTraded":0,"collectiblesName":"rare","currencyName":"keks","users":[{"id":120571255635181568,"name":"Lune","bank":30,"currencyReceived":0,"karma":0,"stipend":25,"collectibles":[0,1,2,4,7,43]},{"id":122778805730279424,"name":"Derekuchan","bank":20,"currencyReceived":10,"karma":2,"stipend":40,"collectibles":[0]},{"id":130447064810127360,"name":"Aeroxyl","bank":0,"currencyReceived":40,"karma":1,"stipend":40,"collectibles":[0,11,2,29]},{"id":121922013852860416,"name":"Baldbeard","bank":10,"stipend":40,"collectibles":[0]},{"id":117890311841251332,"name":"PinOytaku","bank":15,"currencyReceived":5,"karma":1,"stipend":40,"collectibles":[0]},{"id":186456161363427329,"name":"Fake Lune","bank":10,"currencyReceived":0,"karma":0,"stipend":40,"collectibles":[0,3,3,23,26]},{"id":109104159638188032,"name":"Based","bank":0,"currencyReceived":5,"karma":1,"stipend":40,"collectibles":[0,28]},{"id":122824885780086785,"name":"420 RazE iT","bank":5,"currencyReceived":40,"karma":2,"stipend":0,"collectibles":[0,34,41]},{"id":120749075023921154,"name":"Rainbow Dash","bank":45,"currencyReceived":45,"karma":2,"stipend":40,"collectibles":[0,5]},{"id":150088022073802752,"name":"Paper","bank":450,"currencyReceived":10,"karma":1,"stipend":40,"collectibles":[0,46,49,44,50]}],"collectibles":[{"description":"kekbot","url":"http://i.imgur.com/5942nfv.jpg","claimed":true,"unlock":0,"value":20},{"description":"happycat","url":"http://i.imgur.com/tU7MYaj.jpg","claimed":false,"unlock":10,"value":20},{"description":"chef dat boiardee","url":"http://i.imgur.com/wmkTmuM.jpg","claimed":true,"unlock":10,"value":30},{"description":"cookie","url":"http://i.imgur.com/eWrQ4x0.jpg","claimed":false,"unlock":10,"value":10},{"description":"perfect pacha","url":"http://66.media.tumblr.com/711aedcf95c359c10f949768ff838651/tumblr_o1v3o5luYq1smr3n4o1_r2_500.gif","claimed":false,"unlock":10,"value":10},{"description":"rainbow dash","url":"http://img03.deviantart.net/2578/i/2012/226/5/a/rainbow_dash__s_pretty_mane_by_roliga-d5b4xoc.png","claimed":true,"unlock":0,"value":10},{"description":"fudgey the whale","url":"http://i.imgur.com/ZKeLaaU.jpg","claimed":false,"unlock":0,"value":10},{"description":"dark magician","url":"http://i.imgur.com/nKe7t53.png","claimed":true,"unlock":0,"value":10},{"description":"doge token","url":"http://barkpost-assets.s3.amazonaws.com/wp-content/uploads/2013/11/3dDoge.gif","claimed":false,"unlock":0,"value":10},{"description":"leafy","url":"https://scontent-amt2-1.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/c0.24.684.684/12917911_555978111238628_1392478841_n.jpg","claimed":false,"unlock":0,"value":15},{"description":"fuck outta here","url":"http://img.ifcdn.com/images/36f10be1ad6296372c31769e01fb1f518ee3c084579b1feba8f4af6262fa6060_1.jpg","claimed":false,"unlock":0,"value":10},{"description":"sad trump","url":"http://i.imgur.com/M2tVWrT.jpg","claimed":true,"unlock":0,"value":5},{"description":"h3h3 vibrations","url":"http://vignette2.wikia.nocookie.net/warframe/images/3/34/H3h3_cough_face..gif","claimed":false,"unlock":0,"value":20},{"description":"h3h3 triggered","url":"http://31.media.tumblr.com/e2794070a8b64b80910e2de497316426/tumblr_nqw67mXAsa1u9o7gzo1_400.gif","claimed":false,"unlock":0,"value":20},{"description":"rick sanchez","url":"http://vignette4.wikia.nocookie.net/rickandmorty/images/d/dd/Rick.png","claimed":false,"unlock":0,"value":15},{"description":"mgs the orange","url":"http://nerdreactor.com/wp-content/uploads/2014/10/o0520065113112852477.jpg","claimed":false,"unlock":0,"value":15},{"description":"silent doge","url":"http://i.imgur.com/vPZX7I6.png","claimed":false,"unlock":0,"value":15},{"description":"scratch cat","url":"http://i.imgur.com/a2qMLDA.jpg","claimed":false,"unlock":0,"value":15},{"description":"professor sad","url":"http://i.imgur.com/hg2Sn19.png","claimed":false,"unlock":0,"value":20},{"description":"plank lenny","url":"http://i.imgur.com/olvxc53.png","claimed":false,"unlock":0,"value":10},{"description":"praise the sun","url":"http://i.imgur.com/JgXoUVB.png","claimed":false,"unlock":0,"value":20},{"description":"rare pepe martini","url":"http://i.imgur.com/4vkllh1.png","claimed":false,"unlock":0,"value":25},{"description":"hudsonite tears","url":"http://i.imgur.com/wlYQyfu.png","claimed":false,"unlock":0,"value":5},{"description":"strawberry","url":"http://i.imgur.com/LY8SEMF.png","claimed":true,"unlock":0,"value":10},{"description":"adam sandler dating sim","url":"http://i.imgur.com/slY0v2H.png","claimed":false,"unlock":0,"value":20},{"description":"THE BEST THE BEST THE BEST THE BEST","url":"https://youtu.be/5vRlJrkxsqo","claimed":false,"unlock":0,"value":40},{"description":"facepalm","url":"http://i.imgur.com/FhL0AK3.png","claimed":true,"unlock":0,"value":10},{"description":"salt-powered robot","url":"http://i.imgur.com/cFZrWVr.jpg","claimed":false,"unlock":0,"value":15},{"description":"freeza doge","url":"http://i.imgur.com/0it1oKY.png","claimed":true,"unlock":0,"value":15},{"description":"i hate sand","url":"http://i.imgur.com/xICDal2.jpg","claimed":true,"unlock":0,"value":15},{"description":"castro laughing","url":"http://i.imgur.com/nHKjMn4.jpg","claimed":false,"unlock":0,"value":5},{"description":"time to duel","url":"http://i.imgur.com/z10Dcty.png","claimed":false,"unlock":0,"value":10},{"description":"head of cage","url":"http://i.imgur.com/Ul8RaC0.png","claimed":false,"unlock":0,"value":5},{"description":"pepe le doom","url":"http://i.imgur.com/U9iFATm.png","claimed":false,"unlock":0,"value":20},{"description":"high noon o'clock","url":"http://i.imgur.com/AOxxWL6.png","claimed":true,"unlock":0,"value":20},{"description":"sleep tight pepperoni","url":"http://i.imgur.com/NpEVuAn.jpg","claimed":false,"unlock":0,"value":10},{"description":"high noon pupper","url":"http://i.imgur.com/yFFVIDpl.jpg","claimed":false,"unlock":0,"value":20},{"description":"bepis","url":"http://i.imgur.com/pOFT8zkl.jpg","claimed":false,"unlock":0,"value":5},{"description":"msg2 snake","url":"http://66.media.tumblr.com/82bf7f71638a093c07083e0aaa0fd3db/tumblr_nhsm2wHbpq1qbfiiuo1_r3_1280.gif","claimed":false,"unlock":0,"value":25},{"description":"tell you hwat charcoal","url":"http://i.imgur.com/UNYdZ97l.jpg","claimed":false,"unlock":0,"value":20},{"description":"hotdogs","url":"http://i.imgur.com/dM7YOkO.jpg","claimed":false,"unlock":0,"value":15},{"description":"i'm your dad","url":"http://i.imgur.com/ZvtidC5.png","claimed":true,"unlock":0,"value":25},{"description":"tracer's booty","url":"http://i.imgur.com/CI9E33W.jpg","claimed":false,"unlock":0,"value":25},{"description":"pirate me and i will log","url":"http://i.imgur.com/TVAesnE.png","claimed":true,"unlock":0,"value":5},{"description":"colossal edgelord","url":"http://i.imgur.com/at09UVi.jpg","claimed":true,"unlock":0,"value":30},{"description":"thome gateway","url":"http://i.imgur.com/JWRzudR.png","claimed":false,"unlock":0,"value":20},{"description":"y tho","url":"http://i.imgur.com/ZKHa75N.jpg","claimed":true,"unlock":0,"value":20},{"description":"autism increase","url":"http://i.imgur.com/620Cc7v.jpg","claimed":false,"unlock":0,"value":20},{"description":"no fast travel faggot","url":"http://i.imgur.com/lAI94yw.jpg","claimed":false,"unlock":0,"value":10},{"description":"bleach","url":"http://i.imgur.com/vjTWy8j.png","claimed":true,"unlock":0,"value":25},{"description":"Paper","url":"http://i.imgur.com/KI0enql.jpg","claimed":true,"unlock":0,"value":20},{"description":"3 way","url":"http://i.imgur.com/8VROTGj.png","claimed":false,"unlock":0,"value":15},{"description":"cute and sexy but still","url":"http://i.imgur.com/mbXwIAy.png","claimed":false,"unlock":0,"value":15}]}
+{
+  "timestamp": "2016-06-02 02:26:45 -0400",
+  "netTraded": 0,
+  "collectiblesName": "rare",
+  "currencyName": "keks",
+  "users": [
+    {
+      "id": 120571255635181568,
+      "name": "Lune",
+      "bank": 30,
+      "currencyReceived": 0,
+      "karma": 0,
+      "stipend": 25,
+      "collectibles": [
+        0,
+        1,
+        2,
+        4,
+        7,
+        43
+      ]
+    },
+    {
+      "id": 122778805730279424,
+      "name": "Derekuchan",
+      "bank": 20,
+      "currencyReceived": 10,
+      "karma": 2,
+      "stipend": 40,
+      "collectibles": [
+        0
+      ]
+    },
+    {
+      "id": 130447064810127360,
+      "name": "Aeroxyl",
+      "bank": 0,
+      "currencyReceived": 40,
+      "karma": 1,
+      "stipend": 40,
+      "collectibles": [
+        0,
+        11,
+        2,
+        29
+      ]
+    },
+    {
+      "id": 121922013852860416,
+      "name": "Baldbeard",
+      "bank": 10,
+      "stipend": 40,
+      "collectibles": [
+        0
+      ]
+    },
+    {
+      "id": 117890311841251332,
+      "name": "PinOytaku",
+      "bank": 15,
+      "currencyReceived": 5,
+      "karma": 1,
+      "stipend": 40,
+      "collectibles": [
+        0
+      ]
+    },
+    {
+      "id": 186456161363427329,
+      "name": "Fake Lune",
+      "bank": 10,
+      "currencyReceived": 0,
+      "karma": 0,
+      "stipend": 40,
+      "collectibles": [
+        0,
+        3,
+        3,
+        23,
+        26
+      ]
+    },
+    {
+      "id": 109104159638188032,
+      "name": "Based",
+      "bank": 0,
+      "currencyReceived": 5,
+      "karma": 1,
+      "stipend": 40,
+      "collectibles": [
+        0,
+        28
+      ]
+    },
+    {
+      "id": 122824885780086785,
+      "name": "420 RazE iT",
+      "bank": 5,
+      "currencyReceived": 40,
+      "karma": 2,
+      "stipend": 0,
+      "collectibles": [
+        0,
+        34,
+        41
+      ]
+    },
+    {
+      "id": 120749075023921154,
+      "name": "Rainbow Dash",
+      "bank": 45,
+      "currencyReceived": 45,
+      "karma": 2,
+      "stipend": 40,
+      "collectibles": [
+        0,
+        5
+      ]
+    },
+    {
+      "id": 150088022073802752,
+      "name": "Paper",
+      "bank": 450,
+      "currencyReceived": 10,
+      "karma": 1,
+      "stipend": 40,
+      "collectibles": [
+        0,
+        46,
+        49,
+        44,
+        50
+      ]
+    }
+  ],
+  "collectibles": [
+    {
+      "description": "kekbot",
+      "url": "http://i.imgur.com/5942nfv.jpg",
+      "claimed": true,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "happycat",
+      "url": "http://i.imgur.com/tU7MYaj.jpg",
+      "claimed": false,
+      "unlock": 10,
+      "value": 20
+    },
+    {
+      "description": "chef dat boiardee",
+      "url": "http://i.imgur.com/wmkTmuM.jpg",
+      "claimed": true,
+      "unlock": 10,
+      "value": 30
+    },
+    {
+      "description": "cookie",
+      "url": "http://i.imgur.com/eWrQ4x0.jpg",
+      "claimed": false,
+      "unlock": 10,
+      "value": 10
+    },
+    {
+      "description": "perfect pacha",
+      "url": "http://66.media.tumblr.com/711aedcf95c359c10f949768ff838651/tumblr_o1v3o5luYq1smr3n4o1_r2_500.gif",
+      "claimed": false,
+      "unlock": 10,
+      "value": 10
+    },
+    {
+      "description": "rainbow dash",
+      "url": "http://img03.deviantart.net/2578/i/2012/226/5/a/rainbow_dash__s_pretty_mane_by_roliga-d5b4xoc.png",
+      "claimed": true,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "fudgey the whale",
+      "url": "http://i.imgur.com/ZKeLaaU.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "dark magician",
+      "url": "http://i.imgur.com/nKe7t53.png",
+      "claimed": true,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "doge token",
+      "url": "http://barkpost-assets.s3.amazonaws.com/wp-content/uploads/2013/11/3dDoge.gif",
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "leafy",
+      "url": "https://scontent-amt2-1.cdninstagram.com/t51.2885-15/s640x640/sh0.08/e35/c0.24.684.684/12917911_555978111238628_1392478841_n.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "fuck outta here",
+      "url": "http://img.ifcdn.com/images/36f10be1ad6296372c31769e01fb1f518ee3c084579b1feba8f4af6262fa6060_1.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "sad trump",
+      "url": "http://i.imgur.com/M2tVWrT.jpg",
+      "claimed": true,
+      "unlock": 0,
+      "value": 5
+    },
+    {
+      "description": "h3h3 vibrations",
+      "url": "http://vignette2.wikia.nocookie.net/warframe/images/3/34/H3h3_cough_face..gif",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "h3h3 triggered",
+      "url": "http://31.media.tumblr.com/e2794070a8b64b80910e2de497316426/tumblr_nqw67mXAsa1u9o7gzo1_400.gif",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "rick sanchez",
+      "url": "http://vignette4.wikia.nocookie.net/rickandmorty/images/d/dd/Rick.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "mgs the orange",
+      "url": "http://nerdreactor.com/wp-content/uploads/2014/10/o0520065113112852477.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "silent doge",
+      "url": "http://i.imgur.com/vPZX7I6.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "scratch cat",
+      "url": "http://i.imgur.com/a2qMLDA.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "professor sad",
+      "url": "http://i.imgur.com/hg2Sn19.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "plank lenny",
+      "url": "http://i.imgur.com/olvxc53.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "praise the sun",
+      "url": "http://i.imgur.com/JgXoUVB.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "rare pepe martini",
+      "url": "http://i.imgur.com/4vkllh1.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 25
+    },
+    {
+      "description": "hudsonite tears",
+      "url": "http://i.imgur.com/wlYQyfu.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 5
+    },
+    {
+      "description": "strawberry",
+      "url": "http://i.imgur.com/LY8SEMF.png",
+      "claimed": true,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "adam sandler dating sim",
+      "url": "http://i.imgur.com/slY0v2H.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "THE BEST THE BEST THE BEST THE BEST",
+      "url": "https://youtu.be/5vRlJrkxsqo",
+      "claimed": false,
+      "unlock": 0,
+      "value": 40
+    },
+    {
+      "description": "facepalm",
+      "url": "http://i.imgur.com/FhL0AK3.png",
+      "claimed": true,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "salt-powered robot",
+      "url": "http://i.imgur.com/cFZrWVr.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "freeza doge",
+      "url": "http://i.imgur.com/0it1oKY.png",
+      "claimed": true,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "i hate sand",
+      "url": "http://i.imgur.com/xICDal2.jpg",
+      "claimed": true,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "castro laughing",
+      "url": "http://i.imgur.com/nHKjMn4.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 5
+    },
+    {
+      "description": "time to duel",
+      "url": "http://i.imgur.com/z10Dcty.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "head of cage",
+      "url": "http://i.imgur.com/Ul8RaC0.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 5
+    },
+    {
+      "description": "pepe le doom",
+      "url": "http://i.imgur.com/U9iFATm.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "high noon o'clock",
+      "url": "http://i.imgur.com/AOxxWL6.png",
+      "claimed": true,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "sleep tight pepperoni",
+      "url": "http://i.imgur.com/NpEVuAn.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "high noon pupper",
+      "url": "http://i.imgur.com/yFFVIDpl.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "bepis",
+      "url": "http://i.imgur.com/pOFT8zkl.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 5
+    },
+    {
+      "description": "msg2 snake",
+      "url": "http://66.media.tumblr.com/82bf7f71638a093c07083e0aaa0fd3db/tumblr_nhsm2wHbpq1qbfiiuo1_r3_1280.gif",
+      "claimed": false,
+      "unlock": 0,
+      "value": 25
+    },
+    {
+      "description": "tell you hwat charcoal",
+      "url": "http://i.imgur.com/UNYdZ97l.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "hotdogs",
+      "url": "http://i.imgur.com/dM7YOkO.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "i'm your dad",
+      "url": "http://i.imgur.com/ZvtidC5.png",
+      "claimed": true,
+      "unlock": 0,
+      "value": 25
+    },
+    {
+      "description": "tracer's booty",
+      "url": "http://i.imgur.com/CI9E33W.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 25
+    },
+    {
+      "description": "pirate me and i will log",
+      "url": "http://i.imgur.com/TVAesnE.png",
+      "claimed": true,
+      "unlock": 0,
+      "value": 5
+    },
+    {
+      "description": "colossal edgelord",
+      "url": "http://i.imgur.com/at09UVi.jpg",
+      "claimed": true,
+      "unlock": 0,
+      "value": 30
+    },
+    {
+      "description": "thome gateway",
+      "url": "http://i.imgur.com/JWRzudR.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "y tho",
+      "url": "http://i.imgur.com/ZKHa75N.jpg",
+      "claimed": true,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "autism increase",
+      "url": "http://i.imgur.com/620Cc7v.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "no fast travel faggot",
+      "url": "http://i.imgur.com/lAI94yw.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "bleach",
+      "url": "http://i.imgur.com/vjTWy8j.png",
+      "claimed": true,
+      "unlock": 0,
+      "value": 25
+    },
+    {
+      "description": "Paper",
+      "url": "http://i.imgur.com/KI0enql.jpg",
+      "claimed": true,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "3 way",
+      "url": "http://i.imgur.com/8VROTGj.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "cute and sexy but still",
+      "url": "http://i.imgur.com/mbXwIAy.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "THIS IS A MAN",
+      "url": "http://prntscr.com/bbb545",
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    }
+  ]
+}
