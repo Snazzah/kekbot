@@ -1,5 +1,5 @@
 {
-  "timestamp": "2016-06-02 02:26:45 -0400",
+  "timestamp": "2016-06-02 10:00:18 -0400",
   "netTraded": 0,
   "collectiblesName": "rare",
   "currencyName": "keks",
@@ -7,10 +7,10 @@
     {
       "id": 120571255635181568,
       "name": "Lune",
-      "bank": 30,
+      "bank": 10,
       "currencyReceived": 0,
       "karma": 0,
-      "stipend": 25,
+      "stipend": 40,
       "collectibles": [
         0,
         1,
@@ -511,6 +511,27 @@
       "claimed": false,
       "unlock": 0,
       "value": 10
+    },
+    {
+      "description": "no fun",
+      "url": "http://i.imgur.com/178vZPK.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "when",
+      "url": "http://i.imgur.com/n0v8xYt.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 25
+    },
+    {
+      "description": "poliwog he did it",
+      "url": "http://i.imgur.com/mPo7U7q.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
     }
   ]
 }

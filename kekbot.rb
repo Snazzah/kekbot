@@ -1,5 +1,6 @@
 require 'discordrb'
 require 'json'
+require 'yaml'
 
 bot = Discordrb::Commands::CommandBot.new token: ARGV[0], application_id: 185442396119629824, prefix: '.'
 
@@ -15,27 +16,27 @@ bot.ready do |event|
 	file = File.read('kekdb.json')
 	db = JSON.parse(file)
 
-	bot.send_message(devChannel, "Loaded database from **" + db['timestamp'] + "** :file_folder: ")
-	sleep 1
+	#bot.send_message(devChannel, "Loaded database from **" + db['timestamp'] + "** :file_folder: ")
+	#sleep 1
 
 	cmd = "git log --pretty=\"%h\" -n 1"
 	rev = `#{cmd}`
 	event.bot.game = "#{version} #{rev.strip}"
 
-	cmd = "git log -n 1"
-	log = `#{cmd}`
+	#cmd = "git log -n 1"
+	#log = `#{cmd}`
 
-	cmd = "git branch | grep \"*\""
-	branch = `#{cmd}`
+	#cmd = "git branch | grep \"*\""
+	#branch = `#{cmd}`
 
-	bot.send_message(devChannel,"**Current Revision**\n```branch: #{branch}\n#{log}```")
-	sleep 1
+	#bot.send_message(devChannel,"**Current Revision**\n```branch: #{branch}\n#{log}```")
+	#sleep 1
 
-	bot.send_message(devChannel, "**Active servers** :computer:")
-	bot.servers.each do |x|
-		bot.send_message(devChannel, "```name: #{x[1].name}\nowner: #{x[1].owner.username}\nmembers: #{x[1].member_count}```")
-		sleep 0.5
-	end
+	#bot.send_message(devChannel, "**Active servers** :computer:")
+	#bot.servers.each do |x|
+	#	bot.send_message(devChannel, "```name: #{x[1].name}\nowner: #{x[1].owner.username}\nmembers: #{x[1].member_count}```")
+	#	sleep 0.5
+	#end
 
 	bot.send_message(devChannel, "**Bot ready!** :raised_hand:")
 
@@ -118,10 +119,7 @@ end
 bot.command(:save, description: "force database save") do |event|
 	break unless event.channel.id == devChannel
 
-	db['timestamp'] = Time.now.to_s
-
-	file = File.open("kekdb.json", "w")
-	file.write(JSON.pretty_generate(db))
+	save(db)
 
 	event << "**You have saved the keks..** :pray:"
 
@@ -454,6 +452,9 @@ def save(db)
 
 	file = File.open("kekdb.json", "w")
 	file.write(JSON.pretty_generate(db))
+
+	#file = File.open("kekdb.yaml", "w")
+	#file.write(db.to_yaml)
 
 end
 
