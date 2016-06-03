@@ -350,13 +350,18 @@ bot.command(:claim, min_args: 1, description: "claims an unclaimed rare") do |ev
 	nil
 end
 
-bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, amount, *description|
+bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [description] @user [offer]") do |event, *sale|
+
+	
+	amount = sale.pop.to_i
+	sale.pop #pop off mention
+	description = sale.join(' ')
+	buyer = event.message.mentions.at(0)
 
 	#setup
-	amount = amount.to_i
-	buyer_db = getUser(db, event.message.mentions.at(0).id)
+	buyer_db = getUser(db, buyer.id)
 	seller_db = getUser(db, event.user.id)
-	description = description.join(' ')
+	
 	collectibleIndex = getCollectibleIndex(db, description)
 	collectible = db["collectibles"][collectibleIndex]
 
@@ -386,9 +391,9 @@ bot.command(:sell, min_args: 3, description: "create a sale") do |event, buyer, 
 
 	#process sale
 	event << "#{seller_db["name"]} wants to sell `#{collectible["description"]}` to #{buyer_db["name"]} for #{amount} #{db["currencyName"]}! :incoming_envelope:"
-	event << "#{buyer}, type `accept` or `reject`"
+	event << "#{buyer.mention}, type `accept` or `reject`"
 
-	bot.parse_mention(buyer).await(:accept) do |subevent, test|
+	buyer.await(:accept) do |subevent|
 
 		continue = false
 

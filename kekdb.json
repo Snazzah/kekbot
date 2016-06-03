@@ -1,13 +1,13 @@
 {
-  "timestamp": "2016-06-02 22:52:39 -0400",
-  "netTraded": 257,
+  "timestamp": "2016-06-03 02:49:41 -0400",
+  "netTraded": 277,
   "collectiblesName": "rare",
   "currencyName": "keks",
   "users": [
     {
       "id": 120571255635181568,
       "name": "Lune",
-      "bank": 100,
+      "bank": 80,
       "currencyReceived": 80,
       "karma": 2,
       "stipend": 20,
@@ -17,7 +17,8 @@
         2,
         4,
         7,
-        43
+        43,
+        23
       ]
     },
     {
@@ -74,7 +75,7 @@
     {
       "id": 186456161363427329,
       "name": "Fake Lune",
-      "bank": 10,
+      "bank": 30,
       "currencyReceived": 0,
       "karma": 0,
       "stipend": 40,
@@ -82,7 +83,6 @@
         0,
         3,
         3,
-        23,
         26
       ]
     },
