@@ -1,5 +1,5 @@
 {
-  "timestamp": "2016-06-03 02:49:41 -0400",
+  "timestamp": "2016-06-03 11:21:19 -0400",
   "netTraded": 277,
   "collectiblesName": "rare",
   "currencyName": "keks",
@@ -624,6 +624,20 @@
       "claimed": false,
       "unlock": 0,
       "value": 10
+    },
+    {
+      "description": "it's time to drift",
+      "url": "http://i.imgur.com/VZFhmdy.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "the master",
+      "url": "http://giphy.com/gifs/3o72EZR8eNL8bYC2dy",
+      "claimed": false,
+      "unlock": 0,
+      "value": 20
     }
   ]
 }
