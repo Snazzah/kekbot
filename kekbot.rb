@@ -275,7 +275,7 @@ bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who 
 end
 
 #list collectibles
-bot.command(:rares, description: "list what rares you own") do |event|
+bot.command(:inventory, description: "list what rares you own") do |event|
 
 	user = getUser(db, event.user.id.to_i)
 
@@ -285,6 +285,7 @@ bot.command(:rares, description: "list what rares you own") do |event|
 		event << "`#{db["collectibles"][x]["description"]}`"
 	end	
 
+	event << "\nInspect a #{db["collectiblesName"]} in your inventory with `.rare [description]`."
 	nil
 end
 
@@ -342,7 +343,7 @@ bot.command(:claim, min_args: 1, description: "claims an unclaimed rare") do |ev
 		user["bank"] -= collectible["value"]
 		collectible["claimed"] = true
 		user["collectibles"][user["collectibles"].length] = collectibleIndex#
-		event << "`#{description}` has been added to your inventory! :money_with_wings:"
+		event << "`#{description}` has been added to your `.inventory`! :money_with_wings:"
 
 	end
 
