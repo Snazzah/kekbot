@@ -440,6 +440,25 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 	nil
 end
 
+bot.command(:trade, description: "trade collectibles with other users", usage: ".trade @user [yourCollectible] / [theirCollectible]") do |event, *trade|
+
+	trade.shift #drop mention
+	recipient = getUser(db, event.message.mentions.at(0).id)
+	trade = trade.join(' ').split("\s/\s").slice(0..1)	
+
+	collectible_a = getCollectibleIndex(db, trade[0])
+	if collectible_a.nil?
+		event << "#{db["collectiblesName"]} `#{trade[0]}` not found."
+		return
+	end
+
+	collectible_b = getCollectibleIndex(db, trade[1])
+	if collectible_b.nil?
+		event << "#{db["collectiblesName"]} `#{trade[1]}` not found."
+	end
+
+end
+
 bot.command(:eval, help_available: false) do |event, *code|
   break unless event.user.id == 120571255635181568 # Replace number with your ID
 
