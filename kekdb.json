@@ -1,16 +1,16 @@
 {
-  "timestamp": "2016-06-02 19:45:01 -0400",
-  "netTraded": 182,
+  "timestamp": "2016-06-02 22:52:39 -0400",
+  "netTraded": 257,
   "collectiblesName": "rare",
   "currencyName": "keks",
   "users": [
     {
       "id": 120571255635181568,
       "name": "Lune",
-      "bank": 80,
-      "currencyReceived": 40,
-      "karma": 1,
-      "stipend": 30,
+      "bank": 100,
+      "currencyReceived": 80,
+      "karma": 2,
+      "stipend": 20,
       "collectibles": [
         0,
         1,
@@ -26,7 +26,7 @@
       "bank": 0,
       "currencyReceived": 15,
       "karma": 3,
-      "stipend": 25,
+      "stipend": 0,
       "collectibles": [
         0,
         42
@@ -101,23 +101,24 @@
     {
       "id": 122824885780086785,
       "name": "420 RazE iT",
-      "bank": 20,
-      "currencyReceived": 55,
-      "karma": 3,
+      "bank": 35,
+      "currencyReceived": 70,
+      "karma": 5,
       "stipend": 0,
       "collectibles": [
         0,
         34,
-        41
+        41,
+        62
       ]
     },
     {
       "id": 120749075023921154,
       "name": "Rainbow Dash",
-      "bank": 47,
-      "currencyReceived": 47,
-      "karma": 3,
-      "stipend": 40,
+      "bank": 62,
+      "currencyReceived": 62,
+      "karma": 5,
+      "stipend": 0,
       "collectibles": [
         0,
         5
@@ -141,10 +142,21 @@
     {
       "id": 131237035884150785,
       "name": "knucklehead",
-      "bank": 60,
-      "currencyReceived": 50,
-      "karma": 3,
+      "bank": 65,
+      "currencyReceived": 55,
+      "karma": 4,
       "stipend": 0,
+      "collectibles": [
+        0
+      ]
+    },
+    {
+      "id": 120682543988080642,
+      "name": "Yellow Temperance",
+      "bank": 10,
+      "currencyReceived": 0,
+      "karma": 0,
+      "stipend": 40,
       "collectibles": [
         0
       ]
@@ -584,6 +596,34 @@
       "claimed": false,
       "unlock": 0,
       "value": 30
+    },
+    {
+      "description": "i breathe memes",
+      "url": "http://i.imgur.com/ZCuv3EZ.png",
+      "claimed": true,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "smash 4 salt",
+      "url": "http://i.imgur.com/nSuyLs7.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 5
+    },
+    {
+      "description": "graphic design",
+      "url": "http://i.imgur.com/D0r64Sw.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 5
+    },
+    {
+      "description": "when the rest just right",
+      "url": "http://i.imgur.com/UqEHSku.png",
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
     }
   ]
 }
