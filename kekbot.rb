@@ -377,13 +377,7 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 		return
 	end
 
-	#need a function to clean up below
-	hasCollectible = false
-	seller_db["collectibles"].each do |x|
-		if x == collectibleIndex
-			hasCollectible = true
-		end
-	end
+	hasCollectible = !seller_db["collectibles"].grep(collectibleIndex).empty?
 
 	if !hasCollectible
 		event << "You don't have this #{db["collectiblesName"]}.. :eyes:"
@@ -396,24 +390,19 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 
 	buyer.await(:sale) do |subevent|
 
-		continue = false
-
 		if subevent.message.content == "accept"
 
 			#users balance could have changed since sale created - double check we can afford it
 			if amount > buyer_db["bank"]
+
 				subevent.respond("#{buyer_db["name"]} can no longer afford that sale.. :eyes:")
+
 			else
 
 				subevent.respond("#{buyer_db['name']} accepted your offer, #{event.user.mention}!")
 
-				seller_db["collectibles"].each_with_index do |x, index|
-					if x == collectibleIndex
-						seller_db["collectibles"].delete_at(index)
-					end
-				end
-
-				buyer_db["collectibles"][buyer_db["collectibles"].length] = collectibleIndex
+				seller_db["collectibles"].delete(collectibleIndex)
+				buyer_db["collectibles"] << collectibleIndex
 
 				buyer_db["bank"] -= amount
 				seller_db["bank"] += amount
@@ -424,14 +413,15 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 
 			true
 
+		elsif subevent.message.content == "reject"
+
+			subevent.respond("#{buyer_db["name"]} has rejected your offer, #{event.user.mention} :x:")
+
+			true
+
 		else
 
-			if subevent.message.content == "reject"
-
-				subevent.respond("#{buyer_db["name"]} has rejected your offer, #{event.user.mention} :x:")
-				true
-
-			end
+			false
 
 		end
 
