@@ -291,7 +291,7 @@ bot.command(:inventory, description: "list what rares you own") do |event|
 end
 
 #list all collectibles
-bot.command(:catalog, description: "lists all rares in db") do |event|
+bot.command(:catalog, description: "lists all unclaimed rares") do |event|
 
 	message = ""
 
