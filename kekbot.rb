@@ -242,6 +242,27 @@ bot.command(:setstipend, min_args: 1, description: "sets all users stipend value
 
 end
 
+bot.command(:nickwallet, description: "Toggle: shows your wallet in your nickname.") do |event|
+
+	user = getUser(db, event.user.id)
+	user["nickwallet"] = !user["nickwallet"]
+
+	if user["nickwallet"]
+
+		event.user.on(event.server).nick = "#{event.user.on(event.server).display_name} (#{user["bank"]} #{db["currencyName"]})"
+		event << "Nickname applied."
+
+	else
+
+		event.user.on(event.server).nick = ""
+		event << "Nickname removed."
+
+	end
+
+	nil
+
+end
+
 #COLLECTIBLES
 #inspect a collectible
 bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who owns it") do |event, *description| 
