@@ -138,7 +138,7 @@ bot.command(:register, description: "registers new user") do |event|
 
 	end
 
-	db['users'][db['users'].length] = { "id" => event.user.id, "name" => event.user.name, "bank" => 10, "currencyReceived" => 0, "karma" => 0, "stipend" => 40, "collectibles" => [0] }
+	db['users'][db['users'].length] = { "id" => event.user.id, "name" => event.user.name, "bank" => 10, "nickwallet" => false, "currencyReceived" => 0, "karma" => 0, "stipend" => 40, "collectibles" => [0] }
 
 	event << "**Welcome to the KekNet, #{event.user.name}!**"
 	event << "Use `.help` for a list of commands."
@@ -186,6 +186,7 @@ bot.command(:setkeks, min_args: 2, description: "sets @user's kek and stipend ba
 		end		
 	end
 
+	updateNick(db, event.message.mentions.at(0).on(event.server))
 	save(db)
 	nil
 end
@@ -226,6 +227,7 @@ bot.command(:give, min_args: 2,  description: "give currency") do |event, to, va
 	event << "**#{fromUser["name"]}** awarded **#{toUser["name"]}** with **#{value.to_s} #{db["currencyName"]}** :joy: :ok_hand: :fire:"
 
 	save(db)
+	updateNick(db, event.bot.parse_mention(to).on(event.server))
 	nil
 end
 
@@ -377,6 +379,7 @@ bot.command(:claim, min_args: 1, description: "claims an unclaimed rare") do |ev
 
 	end
 
+	updateNick(db, event.user.on(event.server))
 	save(db)
 	nil
 end
@@ -437,6 +440,9 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 				buyer_db["bank"] -= amount
 				seller_db["bank"] += amount
 				db["netTraded"] += amount
+
+				updateNick(db, buyer.on(event.server))
+				updateNick(db, event.user.on(event.server))
 				save(db)
 
 			end
@@ -565,6 +571,13 @@ def getCollectibleIndex(db, description)
 		end
 	end
 	return nil
+end
+
+def updateNick(db, user)
+	user_db = getUser(db, user.id)
+	if user_db["nickwallet"]
+		user.nick = "#{user_db["name"]} (#{user_db["bank"]} #{db["currencyName"]})"
+	end
 end
 
 bot.run
