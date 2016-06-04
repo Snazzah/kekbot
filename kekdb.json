@@ -1,6 +1,6 @@
 {
-  "timestamp": "2016-06-03 11:21:19 -0400",
-  "netTraded": 277,
+  "timestamp": "2016-06-04 05:17:21 -0400",
+  "netTraded": 357,
   "collectiblesName": "rare",
   "currencyName": "keks",
   "users": [
@@ -10,15 +10,14 @@
       "bank": 80,
       "currencyReceived": 80,
       "karma": 2,
-      "stipend": 20,
+      "stipend": 40,
       "collectibles": [
         0,
         1,
         2,
         4,
         7,
-        43,
-        23
+        43
       ]
     },
     {
@@ -27,7 +26,7 @@
       "bank": 0,
       "currencyReceived": 15,
       "karma": 3,
-      "stipend": 0,
+      "stipend": 40,
       "collectibles": [
         0,
         42
@@ -65,7 +64,7 @@
       "bank": 5,
       "currencyReceived": 25,
       "karma": 3,
-      "stipend": 0,
+      "stipend": 40,
       "collectibles": [
         0,
         59,
@@ -83,7 +82,8 @@
         0,
         3,
         3,
-        26
+        26,
+        23
       ]
     },
     {
@@ -101,7 +101,7 @@
     {
       "id": 122824885780086785,
       "name": "420 RazE iT",
-      "bank": 35,
+      "bank": 30,
       "currencyReceived": 70,
       "karma": 5,
       "stipend": 0,
@@ -109,16 +109,17 @@
         0,
         34,
         41,
-        62
+        62,
+        64
       ]
     },
     {
       "id": 120749075023921154,
       "name": "Rainbow Dash",
-      "bank": 62,
-      "currencyReceived": 62,
-      "karma": 5,
-      "stipend": 0,
+      "bank": 102,
+      "currencyReceived": 102,
+      "karma": 6,
+      "stipend": 40,
       "collectibles": [
         0,
         5
@@ -145,7 +146,7 @@
       "bank": 65,
       "currencyReceived": 55,
       "karma": 4,
-      "stipend": 0,
+      "stipend": 40,
       "collectibles": [
         0
       ]
@@ -156,6 +157,17 @@
       "bank": 10,
       "currencyReceived": 0,
       "karma": 0,
+      "stipend": 40,
+      "collectibles": [
+        0
+      ]
+    },
+    {
+      "id": 131610324477411328,
+      "name": "Prazzic",
+      "bank": 50,
+      "currencyReceived": 40,
+      "karma": 1,
       "stipend": 40,
       "collectibles": [
         0
@@ -614,7 +626,7 @@
     {
       "description": "graphic design",
       "url": "http://i.imgur.com/D0r64Sw.png",
-      "claimed": false,
+      "claimed": true,
       "unlock": 0,
       "value": 5
     },
@@ -638,6 +650,13 @@
       "claimed": false,
       "unlock": 0,
       "value": 20
+    },
+    {
+      "description": "one chloride to rule them all",
+      "url": "http://i.imgur.com/iqnUYz2.jpg",
+      "claimed": false,
+      "unlock": 0,
+      "value": 30
     }
   ]
 }
