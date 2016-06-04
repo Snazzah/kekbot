@@ -340,7 +340,7 @@ bot.command(:addrare, min_args: 3, description: "adds a rare to the db") do |eve
 
 	description = description.join(' ')
 
-	db["collectibles"][db["collectibles"].length] = { "description" => description, "url" => url, "claimed" => false, "unlock" => 0, "value" => value.to_i }
+	db["collectibles"][db["collectibles"].length] = { "description" => description, "timestamp"=> Time.now, "author" => event.user.name, "url" => url, "visible" => false, "claimed" => false, "unlock" => 0, "value" => value.to_i }
 
 	event << "Added rare: `#{description}`"
 

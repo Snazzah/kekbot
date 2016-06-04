@@ -1,24 +1,25 @@
 {
-  "timestamp": "2016-06-04 05:17:21 -0400",
-  "netTraded": 357,
+  "timestamp": "2016-06-04 09:44:57 -0400",
+  "netTraded": 407,
   "collectiblesName": "rare",
   "currencyName": "keks",
   "users": [
     {
       "id": 120571255635181568,
       "name": "Lune",
-      "bank": 80,
+      "bank": 75,
       "nickwallet": false,
-      "currencyReceived": 80,
-      "karma": 2,
-      "stipend": 40,
+      "currencyReceived": 85,
+      "karma": 3,
+      "stipend": 5,
       "collectibles": [
         0,
         1,
         2,
         4,
         7,
-        43
+        43,
+        54
       ]
     },
     {
@@ -79,10 +80,10 @@
     {
       "id": 186456161363427329,
       "name": "Fake Lune",
-      "bank": 30,
+      "bank": 25,
       "nickwallet": false,
-      "currencyReceived": 0,
-      "karma": 0,
+      "currencyReceived": 35,
+      "karma": 7,
       "stipend": 40,
       "collectibles": [
         0,
@@ -569,7 +570,7 @@
     {
       "description": "no fun",
       "url": "http://i.imgur.com/178vZPK.jpg",
-      "claimed": false,
+      "claimed": true,
       "unlock": 0,
       "value": 10
     },
@@ -670,6 +671,16 @@
       "claimed": false,
       "unlock": 0,
       "value": 30
+    },
+    {
+      "description": "delet this en espanol",
+      "timestamp": "2016-06-04 09:44:57 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/9elYy1g.jpg",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
     }
   ]
 }
