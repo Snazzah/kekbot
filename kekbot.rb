@@ -292,7 +292,6 @@ end
 
 #list all collectibles
 bot.command(:catalog, description: "lists all rares in db") do |event|
-	break unless event.channel.id == devChannel
 
 	message = ""
 
