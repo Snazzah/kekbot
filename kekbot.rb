@@ -241,7 +241,7 @@ bot.command(:setstipend, min_args: 1, description: "sets all users stipend value
 
 end
 
-#COLLECTABLES
+#COLLECTIBLES
 #inspect a collectible
 bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who owns it") do |event, *description| 
 
@@ -394,7 +394,7 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 	event << "#{seller_db["name"]} wants to sell `#{collectible["description"]}` to #{buyer_db["name"]} for #{amount} #{db["currencyName"]}! :incoming_envelope:"
 	event << "#{buyer.mention}, type `accept` or `reject`"
 
-	buyer.await(:accept) do |subevent|
+	buyer.await(:sale) do |subevent|
 
 		continue = false
 
@@ -435,8 +435,6 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 
 		end
 
-		#false
-
 	end
 	nil
 end
@@ -444,9 +442,11 @@ end
 bot.command(:trade, description: "trade collectibles with other users", usage: ".trade @user [yourCollectible] / [theirCollectible]") do |event, *trade|
 
 	trade.shift #drop mention
-	recipient = getUser(db, event.message.mentions.at(0).id)
+	user_a = getUser(db, event.user.id)
+	user_b = getUser(db, event.message.mentions.at(0).id)
 	trade = trade.join(' ').split("\s/\s").slice(0..1)	
 
+	#check that collectibles exist
 	collectible_a = getCollectibleIndex(db, trade[0])
 	if collectible_a.nil?
 		event << "#{db["collectiblesName"]} `#{trade[0]}` not found."
@@ -456,8 +456,52 @@ bot.command(:trade, description: "trade collectibles with other users", usage: "
 	collectible_b = getCollectibleIndex(db, trade[1])
 	if collectible_b.nil?
 		event << "#{db["collectiblesName"]} `#{trade[1]}` not found."
+		return
 	end
 
+	#check that each user owns the specified collectibles
+	if user_a["collectibles"].grep(collectible_a).empty?
+		event << "You don't own that #{db["collectiblesName"]}..!"
+		return
+	end
+
+	if user_b["collectibles"].grep(collectible_b).empty?
+		event << "#{user_b} doesn't own that #{db["collectiblesName"]}"
+		return
+	end
+
+	event << "#{user_a["name"]} wants to trade his `#{db["collectibles"][collectible_a]["description"]}` for your `#{db["collectibles"][collectible_b]["description"]}` #{event.message.mentions.at(0).mention}!"
+	event << "Respond with `accept` or `reject` to complete the trade."
+
+	event.message.mentions.at(0).await(:trade) do |subevent|
+
+		if subevent.message.content == "accept"
+
+			#perform the trade
+			user_a["collectibles"].delete(collectible_a)
+			user_a["collectibles"] << collectible_b
+
+			user_b["collectibles"].delete(collectible_b)
+			user_b["collectibles"] << collectible_a
+
+			subevent.respond("Trade complete! :blush: :heart:")
+
+			save(db)
+			true
+
+		elsif subevent.message.content == "reject"
+
+			subevent.respond("#{user_b["name"]} has rejected your offer, #{event.user.mention} :x:")
+
+			true
+
+		else
+
+			false
+
+		end
+	end
+	nil
 end
 
 bot.command(:eval, help_available: false) do |event, *code|
