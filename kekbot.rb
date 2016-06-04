@@ -294,10 +294,19 @@ end
 bot.command(:catalog, description: "lists all rares in db") do |event|
 	break unless event.channel.id == devChannel
 
+	message = ""
+
 	db["collectibles"].each do |x|
-		event.respond("`#{x["description"]} value: #{x["value"].to_s}`")
-		sleep 0.5
+		if (message.length + x["description"].length) > 2000
+			event.respond(message)
+			message = ""
+		end
+
+		if !x["claimed"] then message << "`#{x["description"]} (#{x["value"]})` " end
+
 	end
+
+	event.respond(message)
 
 	nil
 end
