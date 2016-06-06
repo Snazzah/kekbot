@@ -316,9 +316,11 @@ end
 #list all collectibles
 bot.command(:catalog, description: "lists all unclaimed rares") do |event|
 
-	message = ""
+	message = "**Unclaimed #{db["collectiblesName"]}s**\nClaim any #{db["collectiblesName"]} in the list below with `.claim [description]`.\n\n"
+	counter = 0
 
 	db["collectibles"].each do |x|
+
 		if (message.length + x["description"].length) > 2000
 			event.respond(message)
 			message = ""
