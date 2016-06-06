@@ -1,17 +1,17 @@
 {
-  "timestamp": "2016-06-04 09:44:57 -0400",
-  "netTraded": 407,
+  "timestamp": "2016-06-06 00:52:09 -0400",
+  "netTraded": 502,
   "collectiblesName": "rare",
   "currencyName": "keks",
   "users": [
     {
       "id": 120571255635181568,
       "name": "Lune",
-      "bank": 75,
+      "bank": 55,
       "nickwallet": false,
       "currencyReceived": 85,
       "karma": 3,
-      "stipend": 5,
+      "stipend": 20,
       "collectibles": [
         0,
         1,
@@ -19,20 +19,22 @@
         4,
         7,
         43,
-        54
+        73,
+        28
       ]
     },
     {
       "id": 122778805730279424,
       "name": "Derekuchan",
-      "bank": 0,
-      "nickwallet": false,
-      "currencyReceived": 15,
-      "karma": 3,
-      "stipend": 40,
+      "bank": 50,
+      "nickwallet": true,
+      "currencyReceived": 75,
+      "karma": 6,
+      "stipend": 30,
       "collectibles": [
         0,
-        42
+        42,
+        53
       ]
     },
     {
@@ -42,7 +44,7 @@
       "nickwallet": false,
       "currencyReceived": 90,
       "karma": 3,
-      "stipend": 0,
+      "stipend": 40,
       "collectibles": [
         0,
         11,
@@ -96,14 +98,14 @@
     {
       "id": 109104159638188032,
       "name": "Based",
-      "bank": 0,
+      "bank": 20,
       "nickwallet": false,
-      "currencyReceived": 5,
-      "karma": 1,
+      "currencyReceived": 25,
+      "karma": 4,
       "stipend": 40,
       "collectibles": [
         0,
-        28
+        54
       ]
     },
     {
@@ -113,7 +115,7 @@
       "nickwallet": false,
       "currencyReceived": 70,
       "karma": 5,
-      "stipend": 0,
+      "stipend": 40,
       "collectibles": [
         0,
         34,
@@ -166,10 +168,10 @@
     {
       "id": 120682543988080642,
       "name": "Yellow Temperance",
-      "bank": 10,
+      "bank": 15,
       "nickwallet": false,
-      "currencyReceived": 0,
-      "karma": 0,
+      "currencyReceived": 5,
+      "karma": 1,
       "stipend": 40,
       "collectibles": [
         0
@@ -182,6 +184,18 @@
       "nickwallet": false,
       "currencyReceived": 40,
       "karma": 1,
+      "stipend": 40,
+      "collectibles": [
+        0
+      ]
+    },
+    {
+      "id": 189158661778571265,
+      "name": "xfirephoenix",
+      "bank": 20,
+      "nickwallet": false,
+      "currencyReceived": 10,
+      "karma": 2,
       "stipend": 40,
       "collectibles": [
         0
@@ -563,7 +577,7 @@
     {
       "description": "THIS IS A MAN",
       "url": "http://prntscr.com/bbb545",
-      "claimed": false,
+      "claimed": true,
       "unlock": 0,
       "value": 10
     },
@@ -677,6 +691,116 @@
       "timestamp": "2016-06-04 09:44:57 -0400",
       "author": "Lune",
       "url": "http://i.imgur.com/9elYy1g.jpg",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "croissants",
+      "timestamp": "2016-06-05 00:19:53 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/bg671jU.jpg",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "cheesy pickup line",
+      "timestamp": "2016-06-05 01:59:04 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/Ts5NVW7.jpg",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "free shrugs",
+      "timestamp": "2016-06-05 21:05:42 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/BYv5cg8.png",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 5
+    },
+    {
+      "description": "levels dex",
+      "timestamp": "2016-06-05 21:28:24 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/lrDIgAM.png",
+      "visible": false,
+      "claimed": true,
+      "unlock": 0,
+      "value": 20
+    },
+    {
+      "description": "200% triggered",
+      "timestamp": "2016-06-05 21:33:08 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/DYF4jup.png",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 30
+    },
+    {
+      "description": "praise my sun",
+      "timestamp": "2016-06-05 21:34:16 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/kv5uMVD.png",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 15
+    },
+    {
+      "description": "i can't feel my cheetos",
+      "timestamp": "2016-06-05 21:37:00 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/m4TX0VC.png",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "illuminati",
+      "timestamp": "2016-06-05 21:39:02 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/8N54c7c.png",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 13
+    },
+    {
+      "description": "dat boi play of the game",
+      "timestamp": "2016-06-05 21:48:06 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/x3NUlUI.jpg",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "it's linoone",
+      "timestamp": "2016-06-06 00:44:58 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/bOnHYXX.png",
+      "visible": false,
+      "claimed": false,
+      "unlock": 0,
+      "value": 10
+    },
+    {
+      "description": "perfect bastion",
+      "timestamp": "2016-06-06 00:52:09 -0400",
+      "author": "Lune",
+      "url": "http://i.imgur.com/0E5NrmE.png",
       "visible": false,
       "claimed": false,
       "unlock": 0,
