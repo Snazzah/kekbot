@@ -162,7 +162,7 @@ bot.command(:keks, description: "fetches your balance, or @user's balance") do |
 	usersdb.each do |x|		
 
 		if x['id'].to_i == mention
-			event << "#{x['name']}'s Dank Bank balance: **#{x['bank'].to_s} #{db['currencyName']}**"
+			event << "#{bot.user(x['id']).on(event.server).display_name}'s Dank Bank balance: **#{x['bank'].to_s} #{db['currencyName']}**"
 			event << "Stipend balance: **#{x['stipend'].to_s} #{db['currencyName']}**"
 		end
 
@@ -202,7 +202,7 @@ bot.command(:give, min_args: 2,  description: "give currency") do |event, to, va
 	end
 
 	if bot.parse_mention(to).id == 185442417208590338
-		event << "Wh-... wha.. #{fromUser["name"]}-senpai...*!*"
+		event << "Wh-... wha.. #{bot.user(fromUser["id"]).on(event.server).display_name}-senpai...*!*"
 		event << "http://i.imgur.com/nxMsRS5.png"
 		return
 	end
@@ -224,7 +224,7 @@ bot.command(:give, min_args: 2,  description: "give currency") do |event, to, va
 	toUser["karma"] += 1
 	db["netTraded"] += value.to_i
 
-	event << "**#{fromUser["name"]}** awarded **#{toUser["name"]}** with **#{value.to_s} #{db["currencyName"]}** :joy: :ok_hand: :fire:"
+	event << "**#{bot.user(fromUser["id"]).on(event.server).display_name}** awarded **#{bot.user(toUser["id"]).on(event.server).display_name}** with **#{value.to_s} #{db["currencyName"]}** :joy: :ok_hand: :fire:"
 
 	save(db)
 	updateNick(db, event.bot.parse_mention(to).on(event.server))
@@ -251,7 +251,7 @@ bot.command(:nickwallet, description: "Toggle: shows your wallet in your nicknam
 
 	if user["nickwallet"]
 
-		event.user.on(event.server).nick = "#{event.user.on(event.server).display_name} (#{user["bank"]} #{db["currencyName"]})"
+		event.user.on(event.server).nick = "#{event.user.on(event.server).on(event.server).display_name} (#{user["bank"]} #{db["currencyName"]})"
 		event << "Nickname applied."
 
 	else
@@ -274,7 +274,7 @@ bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who 
 	user = getUser(db, event.user.id.to_i)
 	user["collectibles"].each do |x|
 		if db["collectibles"][x]["description"] == description
-			event << "#{user["name"]}\'s `#{description}`: "
+			event << "#{bot.user(user["id"]).on(event.server).display_name}\'s `#{description}`: "
 			event << db["collectibles"][x]["url"]
 			return
 		end
@@ -303,7 +303,7 @@ bot.command(:inventory, description: "list what rares you own") do |event|
 
 	user = getUser(db, event.user.id.to_i)
 
-	event << "#{user["name"]}\'s `#{user["collectibles"].length.to_s}` #{db["collectiblesName"]}s:\n"
+	event << "#{bot.user(user["id"]).mention}\'s `#{user["collectibles"].length.to_s}` #{db["collectiblesName"]}s:\n"
 
 	user["collectibles"].each do |x|
 		event << "`#{db["collectibles"][x]["description"]}`"
@@ -408,7 +408,7 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 	end
 
 	if amount > buyer_db["bank"]
-		event << "#{buyer_db["name"]} can not afford that sale.. :eyes:"
+		event << "#{bot.user(buyer_db["id"]).on(event.server).display_name} can not afford that sale.. :eyes:"
 		return
 	end
 
@@ -420,7 +420,7 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 	end
 
 	#process sale
-	event << "#{seller_db["name"]} wants to sell `#{collectible["description"]}` to #{buyer_db["name"]} for #{amount} #{db["currencyName"]}! :incoming_envelope:"
+	event << "#{bot.user(seller_db["id"]).on(event.server).display_name} wants to sell `#{collectible["description"]}` to #{bot.user(buyer_db["id"]).on(event.server).display_name} for #{amount} #{db["currencyName"]}! :incoming_envelope:"
 	event << "#{buyer.mention}, type `accept` or `reject`"
 
 	buyer.await(:sale) do |subevent|
@@ -430,11 +430,11 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 			#users balance could have changed since sale created - double check we can afford it
 			if amount > buyer_db["bank"]
 
-				subevent.respond("#{buyer_db["name"]} can no longer afford that sale.. :eyes:")
+				subevent.respond("#{bot.user(buyer_db["id"]).on(event.server).display_name} can no longer afford that sale.. :eyes:")
 
 			else
 
-				subevent.respond("#{buyer_db['name']} accepted your offer, #{event.user.mention}!")
+				subevent.respond("#{bot.user(buyer_db['id']).on(event.server).display_name} accepted your offer, #{event.user.mention}!")
 
 				seller_db["collectibles"].delete(collectibleIndex)
 				buyer_db["collectibles"] << collectibleIndex
@@ -453,7 +453,7 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 
 		elsif subevent.message.content == "reject"
 
-			subevent.respond("#{buyer_db["name"]} has rejected your offer, #{event.user.mention} :x:")
+			subevent.respond("#{bot.user(buyer_db["id"]).on(event.server).display_name} has rejected your offer, #{event.user.mention} :x:")
 
 			true
 
@@ -498,7 +498,7 @@ bot.command(:trade, description: "trade collectibles with other users", usage: "
 		return
 	end
 
-	event << "#{user_a["name"]} wants to trade his `#{db["collectibles"][collectible_a]["description"]}` for your `#{db["collectibles"][collectible_b]["description"]}` #{event.message.mentions.at(0).mention}!"
+	event << "#{bot.user(user_a["id"]).on(event.server).display_name} wants to trade his `#{db["collectibles"][collectible_a]["description"]}` for your `#{db["collectibles"][collectible_b]["description"]}` #{event.message.mentions.at(0).mention}!"
 	event << "Respond with `accept` or `reject` to complete the trade."
 
 	event.message.mentions.at(0).await(:trade) do |subevent|
@@ -519,7 +519,7 @@ bot.command(:trade, description: "trade collectibles with other users", usage: "
 
 		elsif subevent.message.content == "reject"
 
-			subevent.respond("#{user_b["name"]} has rejected your offer, #{event.user.mention} :x:")
+			subevent.respond("#{bot.user(user_b["id"]).on(event.server).display_name} has rejected your offer, #{event.user.mention} :x:")
 
 			true
 
