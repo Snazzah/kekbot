@@ -267,14 +267,14 @@ end
 
 #COLLECTIBLES
 #inspect a collectible
-bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who owns it") do |event, *description| 
+bot.command(:show, min_args: 1, description: "displays a rare, or tells you who owns it") do |event, *description| 
 
 	description = description.join(' ')
 
 	user = getUser(db, event.user.id.to_i)
 	user["collectibles"].each do |x|
 		if db["collectibles"][x]["description"] == description
-			event << "#{bot.user(user["id"]).on(event.server).display_name}\'s `#{description}`: "
+			event << "#{bot.user(user["id"]).mention}\'s `#{description}`: "
 			event << db["collectibles"][x]["url"]
 			return
 		end
@@ -299,7 +299,7 @@ bot.command(:rare, min_args: 1, description: "displays a rare, or tells you who 
 end
 
 #list collectibles
-bot.command(:inventory, description: "list what rares you own") do |event|
+bot.command(:rares, description: "list what rares you own") do |event|
 
 	user = getUser(db, event.user.id.to_i)
 
@@ -309,7 +309,7 @@ bot.command(:inventory, description: "list what rares you own") do |event|
 		event << "`#{db["collectibles"][x]["description"]}`"
 	end	
 
-	event << "\nInspect a #{db["collectiblesName"]} in your inventory with `.rare [description]`."
+	event << "\nInspect a #{db["collectiblesName"]} in your inventory with `.show [description]`."
 	nil
 end
 
