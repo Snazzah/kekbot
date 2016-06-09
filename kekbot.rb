@@ -1,6 +1,7 @@
 require 'discordrb'
 require 'json'
 require 'yaml'
+require 'digest/sha1'
 
 bot = Discordrb::Commands::CommandBot.new token: ARGV[0], application_id: 185442396119629824, prefix: '.'
 
@@ -9,7 +10,7 @@ puts "This bot's invite URL is #{bot.invite_url}."
 #global things
 db = Hash.new
 devChannel = 184597857414676480
-version = "ALPHA"
+version = "v1.0"
 
 bot.ready do |event|
 
@@ -22,7 +23,7 @@ bot.ready do |event|
 
 	cmd = "git log --pretty=\"%h\" -n 1"
 	rev = `#{cmd}`
-	event.bot.game = "#{version} #{rev.strip}"
+	event.bot.game = "#{version} [#{rev.strip}]"
 
 	cmd = "git log -n 1"
 	log = `#{cmd}`
@@ -128,18 +129,18 @@ end
 
 bot.command(:register, description: "registers new user") do |event|
 
-	usersdb = db['users']
-	usersdb.each do |x|
+	#grab user id
+	id = event.user.id.to_s
 
-		if x['id'] == event.user.id.to_i
-			event << "You are already registered, young kek."
-			return
-		end
-
+	#check if user is already registered
+	if !db['users'][id].nil?
+		event << "You are already registered, yung kek."
 	end
 
-	db['users'][db['users'].length] = { "id" => event.user.id, "name" => event.user.name, "bank" => 10, "nickwallet" => false, "currencyReceived" => 0, "karma" => 0, "stipend" => 40, "collectibles" => [0] }
+	#construct user
+	db['users'][id] = { "name" => event.user.name, "bank" => 10, "nickwallet" => false, "currencyReceived" => 0, "karma" => 0, "stipend" => 40, "collectibles" => [] }
 
+	#welcome message
 	event << "**Welcome to the KekNet, #{event.user.name}!**"
 	event << "Use `.help` for a list of commands."
 	event << "For more info: **https://github.com/z64/kekbot/blob/master/README.md**"
@@ -152,116 +153,146 @@ end
 #get keks
 bot.command(:keks, description: "fetches your balance, or @user's balance") do |event, mention|
 
+	#report our own keks if no @mention
+	#pick up user if we have a @mention
 	if mention.nil?
 		mention = event.user.id.to_i
 	else
 		mention = event.message.mentions.at(0).id.to_i
 	end
 
-	usersdb = db['users']
-	usersdb.each do |x|		
-
-		if x['id'].to_i == mention
-			event << "#{bot.user(x['id']).on(event.server).display_name}'s Dank Bank balance: **#{x['bank'].to_s} #{db['currencyName']}**"
-			event << "Stipend balance: **#{x['stipend'].to_s} #{db['currencyName']}**"
-		end
-
+	#load user from db, report if user is invalid or not registered.
+	user = db["users"][mention.to_s]
+	if user.nil?
+		event << "User does not exist, or hasn't `.register`ed yet. :x:"
+		return
 	end
 
-	nil
+	#report keks
+	event << "#{bot.user(mention).mention}'s Dank Bank balance: **#{user['bank'].to_s} #{db['currencyName']}**"
+	event << "Stipend balance: **#{user['stipend'].to_s} #{db['currencyName']}**"
 
+	nil
 end
 
 #set keks
 bot.command(:setkeks, min_args: 2, description: "sets @user's kek and stipend balance") do |event, mention, bank, stipend|
 	break unless event.channel.id == devChannel
 
-	usersdb = db['users']
-	usersdb.each do |x|		
+	#get integers
+	bank = bank.to_i
+	stipend = stipend.to_i
 
-		if x['id'].to_i == event.message.mentions.at(0).id.to_i
-			x['bank'] = bank.to_i
-			x['stipend'] = stipend.to_i
-			event << "Oh, senpai.. updated! :wink:"
-		end		
-	end
+	#update db with requested values
+	user = event.bot.parse_mention(mention).id.to_s
+	db['users'][user]['bank'] = bank
+	db['users'][user]['stipend'] = stipend
 
-	updateNick(db, event.message.mentions.at(0).on(event.server))
+	#update nickwallet
+	#updateNick(db, event.message.mentions.at(0).on(event.server))
+
+	#notification
+	event << "Oh, senpai.. updated! :wink:"
+
 	save(db)
 	nil
 end
 
 #give keks
 bot.command(:give, min_args: 2,  description: "give currency") do |event, to, value|
-		
-	fromUser = getUser(db, event.user.id.to_i)
+	
+	#pick up user
+	fromUser = db["users"][event.user.id.to_s]
 
+	#return if invalid user
+	if fromUser.nil?
+		event << "User does not exist, or hasn't `.register`ed yet. :x:"
+		return		
+	end
+
+	#check if they have enough first
 	if (fromUser["stipend"] - value.to_i) < 0
 		event << "You do not have enough #{db["currencyName"]} to make this transaction. :disappointed_relieved:"
 		return
 	end
 
-	if bot.parse_mention(to).id == 185442417208590338
-		event << "Wh-... wha.. #{bot.user(fromUser["id"]).on(event.server).display_name}-senpai...*!*"
+	#flattery won't get you very far with KekBot
+	if bot.parse_mention(to).id == event.bot.profile.id
+		event << "Wh-... wha.. #{event.user.on(event.server).display_name}-senpai...*!*"
 		event << "http://i.imgur.com/nxMsRS5.png"
 		return
 	end
 
-	toUser = getUser(db, event.message.mentions.at(0).id.to_i)
+	#pick up user to receive currency
+	toUser = db["users"][event.message.mentions.at(0).id.to_s]
+
+	#check that they exist
 	if toUser.nil?
-		event << "User does not exist, or hasn't `!register`ed yet."
+		event << "User does not exist, or hasn't `.register`ed yet. :x:"
 		return
 	end
 
-	if fromUser["id"] == toUser["id"]
+	#you can't give keks to yourself
+	if fromUser == toUser
 		event << "https://media.giphy.com/media/yidUzkciDTniZ7OHte/giphy.gif"
 		return
 	end	
 
+	#transfer keks
 	fromUser["stipend"] -= value.to_i
 	toUser["bank"] += value.to_i
+
+	#update user stats
 	toUser["currencyReceived"] += value.to_i
 	toUser["karma"] += 1
+
+	#update server stats
 	db["netTraded"] += value.to_i
 
-	event << "**#{bot.user(fromUser["id"]).on(event.server).display_name}** awarded **#{bot.user(toUser["id"]).on(event.server).display_name}** with **#{value.to_s} #{db["currencyName"]}** :joy: :ok_hand: :fire:"
+	#update nickwallet
+	#updateNick(db, event.bot.parse_mention(to).on(event.server))
 
-	save(db)
-	updateNick(db, event.bot.parse_mention(to).on(event.server))
+	#notification
+	event << "**#{event.user.on(event.server).display_name}** awarded **#{event.message.mentions.at(0).on(event.server).display_name}** with **#{value.to_s} #{db["currencyName"]}** :joy: :ok_hand: :fire:"
+
+	save(db)	
 	nil
 end
 
 bot.command(:setstipend, min_args: 1, description: "sets all users stipend values") do |event, value|
 	break unless event.channel.id == devChannel
 
+	#get integer
 	value = value.to_i
 
-	db["users"].each do |x|
-		x["stipend"] = value
+	#update all users
+	db["users"].each do |id, data|
+		data["stipend"] = value
 	end
 
+	#notification
 	event << "All stipends set to `#{value.to_s}`"
 
 end
 
 bot.command(:nickwallet, description: "Toggle: shows your wallet in your nickname.") do |event|
 
-	user = getUser(db, event.user.id)
-	user["nickwallet"] = !user["nickwallet"]
-
-	if user["nickwallet"]
-
-		event.user.on(event.server).nick = "#{event.user.on(event.server).on(event.server).display_name} (#{user["bank"]} #{db["currencyName"]})"
-		event << "Nickname applied."
-
-	else
-
-		event.user.on(event.server).nick = ""
-		event << "Nickname removed."
-
-	end
-
-	nil
+#	user = getUser(db, event.user.id)
+#	user["nickwallet"] = !user["nickwallet"]
+#
+#	if user["nickwallet"]
+#
+#		event.user.on(event.server).nick = "#{event.user.on(event.server).on(event.server).display_name} (#{user["bank"]} #{db["currencyName"]})"
+#		event << "Nickname applied."
+#
+#	else
+#
+#		event.user.on(event.server).nick = ""
+#		event << "Nickname removed."
+#
+#	end
+#
+#	nil
 
 end
 
@@ -336,13 +367,13 @@ bot.command(:catalog, description: "lists all unclaimed rares") do |event|
 end
 
 #add collectibles
-bot.command(:addrare, min_args: 3, description: "adds a rare to the db") do |event, url, value, *description| 
+bot.command(:addrare, min_args: 2, description: "adds a rare to the db") do |event, url, value, *description| 
 	#temporary - only allow :addrare on our private channel.
 	if event.channel.id != 185021357891780608 then break end
 
 	description = description.join(' ')
 
-	db["collectibles"][db["collectibles"].length] = { "description" => description, "timestamp"=> Time.now, "author" => event.user.name, "url" => url, "visible" => false, "claimed" => false, "unlock" => 0, "value" => value.to_i }
+	db["collectiblesv2"][Digest::SHA1.hexdigest(url)] = { "description" => description, "timestamp"=> Time.now, "author" => event.user.name, "url" => url, "visible" => false, "claimed" => false, "unlock" => 0, "value" => value.to_i }
 
 	event << "Added rare: `#{description}`"
 
