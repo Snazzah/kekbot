@@ -300,17 +300,23 @@ end
 #inspect a collectible
 bot.command(:show, min_args: 1, description: "displays a rare, or tells you who owns it") do |event, *description|
 
+  #stitch args together
   description = description.join(' ')
 
-  user = getUser(db, event.user.id.to_i)
+  #get user
+  user = db["users"][event.user.id.to_s]
+
+  #pull collectible if user owns it and display it
   user["collectibles"].each do |x|
-    if db["collectibles"][x]["description"] == description
-      event << "#{bot.user(user["id"]).mention}\'s `#{description}`: "
+    if !db["collectibles"][x].nil? & (db["collectibles"][x]["description"] == description)
+      event << "#{event.user.mention}\'s `#{description}`: "
       event << db["collectibles"][x]["url"]
       return
     end
   end
 
+  #if we're here, we don't own it.
+  #find out who does, or if it's unclaimed.
   db["collectibles"].each do |x|
     if x["description"] == description
       if x["claimed"]
@@ -324,6 +330,7 @@ bot.command(:show, min_args: 1, description: "displays a rare, or tells you who 
     end
   end
 
+  #if we're here, it doesn't exist.
   event << "The #{db["collectiblesName"]} `#{description}` doesn't exist, or isn't in your inventory."
 
   nil
