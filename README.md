@@ -76,9 +76,9 @@ Some not-so obvious things about this db:
 
 - `karma`; the number of times the user has been sent `currency`. For now, this just lets us get some statistics via `currencyReceived / karma`.
 
-- `claimed`; once a rare becomes available, it must be `.claim`ed for its `value`. After which, this field is `true`, and will always be in a players inventory. This lets us run a report on which `collectibles` have yet to be claimed by anyone.
+- `claimed`; once a rare becomes available, it must be `.claim`ed for its `value`. This is taken out of the 'users' 'bank'. After which, this field is `true`, and will always be in a players inventory. This lets us run a report on which `collectibles` have yet to be claimed by anyone.
 
-- `collectibles` inside of `user` is a list of indexes / IDs in the `collectibles` array that the `user` owns.
+- `collectibles` inside of `user` is a list of UIDs in the `collectibles` array that the `user` owns.
 
 
 ## Credits
