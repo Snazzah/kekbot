@@ -18,13 +18,15 @@ These keks are your savings, and are used to purchase "rares" (covered later)
 
 This is a seperate pool of keks that you are given each day (currently capped at 40) that you can give to other people to put into their Bank. Award your friends with keks for being funny, sharing great content or banter, or just generally being awesome!
 
+You can give stipend keks to other users with `.give @user [amount]`
+
 ### Rares
 
-Rares are collectible memes that you can claim or purchase from other users. These aren't your average memes; they are often related to in-jokes in your community - they're special! As of `KekBot V1.X`, all rares are unique and can only be owned by one person at a time, with the exception of the `kekbot` rare, which every new user starts with.
+Rares are collectible memes that you can claim or purchase from other users. These aren't your average memes; they are often related to in-jokes in your community - they're special! As of `KekBot V1.X`, all rares are unique and can only be owned by one person at a time.
 
-You can check your rare inventory with `.rares`. You can view a specific rare with `.rare [description]`. 
+You can check your rare inventory with `.rares`. You can view a specific rare with `.show [description]`. 
 
-Rares can be given away for free to friends, or sold for a price to other users (each rare has a minimum sale value).
+Rares can be traded (rare for rare) with friends with `.trade`, or sold for a price to other user with `.sell`. Each rare has a minimum sale value.
 
 ## Under the Hood
 
@@ -32,32 +34,35 @@ KekBot's current schema:
 
 ```json
 {
-  "timestamp": "2016-05-26 16:23:15 -0400",
-  "netTraded": 60,
+  "timestamp": "2016-06-09 13:10:00 -0400",
+  "netTraded": 0,
   "collectiblesName": "rare",
   "currencyName": "keks",
-  "users": [
-    {
-      "id": 120571255635181570,
+  "users": {
+    "120571255635181568": {
       "name": "Lune",
-      "bank": 50,
-      "currencyReceived": 40,
-      "karma": 3,
+      "bank": 10,
+      "nickwallet": false,
+      "currencyReceived": 0,
+      "karma": 0,
       "stipend": 40,
       "collectibles": [
-        0
+        "69efa478890e114b2f3ee7c2e9875fff2925f9a3"
       ]
     }
-  ],
-  "collectibles": [
-    {
-      "description": "strawberry",
-      "url": "http://i.imgur.com/LY8SEMF.png",
-      "claimed": true,
+  },
+  "collectibles": {
+    "69efa478890e114b2f3ee7c2e9875fff2925f9a3": {
+      "description": "some description",
+      "timestamp": "2016-06-09 08:41:52 -0400",
+      "author": "Lune",
+      "url": "some.url",
+      "visible": false,
+      "claimed": false,
       "unlock": 0,
       "value": 10
     }
-  ]
+  }
 }
 ```
 
