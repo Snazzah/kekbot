@@ -539,9 +539,14 @@ end
 
 bot.command(:trade, description: "trade collectibles with other users", usage: ".trade @user [yourCollectible] / [theirCollectible]") do |event, *trade|
 
+  #setup
   trade.shift #drop mention
-  user_a = getUser($db, event.user.id)
-  user_b = getUser($db, event.message.mentions.at(0).id)
+
+  user_a = event.user
+  user_a_db = $db['users'][user_a.id.to_s]
+
+  user_b = event.message.mentions.at(0)
+  user_b_db = $db['users'][user_b.id.to_s]
   trade = trade.join(' ').split("\s/\s").slice(0..1)
 
   #check that collectibles exist
@@ -558,17 +563,17 @@ bot.command(:trade, description: "trade collectibles with other users", usage: "
   end
 
   #check that each user owns the specified collectibles
-  if user_a["collectibles"].grep(collectible_a).empty?
+  if user_a_db["collectibles"].grep(collectible_a['id']).empty?
     event << "You don't own that #{$db["collectiblesName"]}..!"
     return
   end
 
-  if user_b["collectibles"].grep(collectible_b).empty?
-    event << "#{user_b} doesn't own that #{$db["collectiblesName"]}"
+  if user_b_db["collectibles"].grep(collectible_b['id']).empty?
+    event << "#{user_b_db} doesn't own that #{$db["collectiblesName"]}"
     return
   end
 
-  event << "#{bot.user(user_a["id"]).on(event.server).display_name} wants to trade his `#{$db["collectibles"][collectible_a]["description"]}` for your `#{$db["collectibles"][collectible_b]["description"]}` #{event.message.mentions.at(0).mention}!"
+  event << "#{user_a.on(event.server).display_name} wants to trade his `#{collectible_a["data"]["description"]}` for your `#{collectible_b['data']["description"]}` #{event.message.mentions.at(0).mention}!"
   event << "Respond with `accept` or `reject` to complete the trade."
 
   event.message.mentions.at(0).await(:trade) do |subevent|
@@ -576,11 +581,11 @@ bot.command(:trade, description: "trade collectibles with other users", usage: "
     if subevent.message.content == "accept"
 
       #perform the trade
-      user_a["collectibles"].delete(collectible_a)
-      user_a["collectibles"] << collectible_b
+      user_a_db["collectibles"].delete(collectible_a['id'])
+      user_a_db["collectibles"] << collectible_b['id']
 
-      user_b["collectibles"].delete(collectible_b)
-      user_b["collectibles"] << collectible_a
+      user_b_db["collectibles"].delete(collectible_b['id'])
+      user_b_db["collectibles"] << collectible_a['id']
 
       subevent.respond("Trade complete! :blush: :heart:")
 
@@ -589,7 +594,7 @@ bot.command(:trade, description: "trade collectibles with other users", usage: "
 
     elsif subevent.message.content == "reject"
 
-      subevent.respond("#{bot.user(user_b["id"]).on(event.server).display_name} has rejected your offer, #{event.user.mention} :x:")
+      subevent.respond("user_b.on(event.server).display_name} has rejected your offer, #{event.user.mention} :x:")
 
       true
 
