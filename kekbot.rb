@@ -247,7 +247,7 @@ bot.command(:give, min_args: 2,  description: "give currency") do |event, to, va
   toUser["karma"] += 1
 
   #update server stats
-  $db["netTraded"] += value.to_i
+  $db['stats']['currencyTraded'] += value.to_i
 
   #update nickwallet
   #updateNick($db, event.bot.parse_mention(to).on(event.server))
@@ -309,6 +309,12 @@ bot.command(:show, min_args: 1, description: "displays a rare, or tells you who 
   #look for our collectible, and do checks
   collectible = getCollectible(description)
 
+  #check collectible doesn't exist, or is hidden
+  if collectible.nil? | !collectible['data']['visible']
+    event << "The #{$db["collectiblesName"]} `#{description}` doesn't exist, or isn't in your inventory."
+    return
+  end
+
   #output the collectible if its ours
   if !user['collectibles'].grep(collectible['id']).empty?
     event << "#{event.user.mention}\'s `#{description}`: "
@@ -317,7 +323,7 @@ bot.command(:show, min_args: 1, description: "displays a rare, or tells you who 
   end
 
   #don't show it if it exists, but is claimed by someone else
-  if collectible['data']['claimed']
+  if collectible['data']['owner'].nil?
     event << "`#{description}` is a claimed #{$db["collectiblesName"]}! :eyes:"
     return
   end
@@ -326,9 +332,6 @@ bot.command(:show, min_args: 1, description: "displays a rare, or tells you who 
   event << '`#{description}` is an unclaimed #{$db["collectiblesName"]}! :eyes:'
   event << "Use `.claim #{collectible["data"]["description"]}` to claim this #{$db["collectiblesName"]} for: **#{collectible["data"]["value"].to_s} #{$db["currencyName"]}!**"
   event << collectible["data"]['url']
-
-  #if we're here, it doesn't exist.
-  event << "The #{$db["collectiblesName"]} `#{description}` doesn't exist, or isn't in your inventory."
 
 end
 
@@ -382,7 +385,7 @@ bot.command(:catalog, description: "lists all unclaimed rares") do |event|
     end
 
     #add next collectible to message if its unclaimed
-    if !data["claimed"] then message << "`#{data["description"]} (#{data["value"]})`  " end
+    if (!data['owner'] & data['visible']) then message << "`#{data["description"]} (#{data["value"]})`  " end.nil?
 
   end
 
@@ -398,7 +401,7 @@ bot.command(:submit, min_args: 2, description: "adds a rare to the $db", usage: 
   description = description.join(' ')
 
   #write new collectible
-  $db['collectibles'][Digest::SHA1.hexdigest(url)] = { "description" => description, "timestamp"=> Time.now, "author" => event.user.name, "owner" => nil, "claimed" => false, "url" => url, "visible" => false, "unlock" => 0, "value" => 0 }
+  $db['collectibles'][Digest::SHA1.hexdigest(url)] = { "description" => description, "timestamp"=> Time.now, "author" => event.user.name, "owner" => nil, "url" => url, "visible" => false, "unlock" => 0, "value" => 0 }
 
   #output success
   event << "**Thank you #{event.user.mention}!**"
@@ -421,12 +424,13 @@ bot.command(:claim, min_args: 1, description: "claims an unclaimed rare", usage:
   collectible = getCollectible(description)
 
   #error if collectible doesn't exist
-  if collectible.nil?
+  if (collectible.nil? | !collectible['data']['visible'])
     event << "This rare does not exist.. :eyes:"
+    return
   end
 
   #check if its already claimed
-  if collectible['data']['claimed']
+  if !collectible['data']['owner'].nil?
     event << "`#{description}` is already claimed.. :eyes:"
     return
   end
@@ -441,7 +445,6 @@ bot.command(:claim, min_args: 1, description: "claims an unclaimed rare", usage:
   #perform transaction
   user['collectibles'] << collectible['id']
   user['bank'] -= collectible['data']['value']
-  collectible['data']['claimed'] = true
   collectible['data']['owner'] = event.user.id.to_s
   #updateNick($db, event.user.on(event.server))
   save
@@ -509,6 +512,10 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 
         #output message
         subevent.respond("#{buyer.on(event.server).display_name} accepted your offer, #{event.user.mention}!")
+
+        #stats
+        $db['stats']['sales'] += 1
+        $db['stats']['salesValue'] += amount
 
         #updateNick($db, buyer.on(event.server))
         #updateNick($db, event.user.on(event.server))
@@ -588,6 +595,9 @@ bot.command(:trade, description: "trade collectibles with other users", usage: "
       user_b_db["collectibles"] << collectible_a['id']
 
       subevent.respond("Trade complete! :blush: :heart:")
+
+      #stats
+      $db['stats']['trades'] += 1
 
       save
       true
