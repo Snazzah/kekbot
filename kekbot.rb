@@ -201,6 +201,10 @@ end
 #give keks
 bot.command(:give, min_args: 2,  description: "give currency") do |event, to, value|
 
+  #cast early because this is what ruby wants apparently
+  #codeCommentsAt1am
+  value = value.to_i
+
   #pick up user
   fromUser = $db["users"][event.user.id.to_s]
 
@@ -211,7 +215,7 @@ bot.command(:give, min_args: 2,  description: "give currency") do |event, to, va
   end
 
   #check if they have enough first
-  if (fromUser["stipend"] - value.to_i) < 0
+  if (fromUser["stipend"] - value) < 0
     event << "You do not have enough #{$db["currencyName"]} to make this transaction. :disappointed_relieved:"
     return
   end
@@ -239,21 +243,42 @@ bot.command(:give, min_args: 2,  description: "give currency") do |event, to, va
   end
 
   #transfer keks
-  fromUser["stipend"] -= value.to_i
-  toUser["bank"] += value.to_i
+  fromUser["stipend"] -= value
+  toUser["bank"] += value
 
   #update user stats
-  toUser["currencyReceived"] += value.to_i
+  toUser["currencyReceived"] += value
   toUser["karma"] += 1
 
   #update server stats
-  $db['stats']['currencyTraded'] += value.to_i
+  $db['stats']['currencyTraded'] += value
 
   #update nickwallet
   #updateNick($db, event.bot.parse_mention(to).on(event.server))
 
   #notification
   event << "**#{event.user.on(event.server).display_name}** awarded **#{event.message.mentions.at(0).on(event.server).display_name}** with **#{value.to_s} #{$db["currencyName"]}** :joy: :ok_hand: :fire:"
+
+  #unlock
+  $db['collectibles'].each do |id, data|
+
+    #check if collectible is hidden, and we've passed its
+    if ($db['stats']['currencyTraded'] >= data['unlock']) & (data['unlock'] != 0) & !data['visible']
+
+      #make the collectible available
+      data['visible'] = true
+
+      #announce
+      event << "***Collectible Unlocked:*** `#{data['description']}` :confetti_ball:"
+      event << "Use `.claim #{data["description"]}` to claim this #{$db["collectiblesName"]} for: **#{data["value"].to_s} #{$db["currencyName"]}!**"
+      event << data['url']
+
+      #announce in devChannel
+      event.bot.send_message(devChannel, "Collectible `#{data['description']}` unlocked by `#{event.user.name} (#{event.user.id})`!")
+
+    end
+
+  end
 
   save
   nil
