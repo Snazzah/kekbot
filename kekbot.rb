@@ -721,25 +721,9 @@ end
 
 #FUNCTIONS
 def save
-
   $db['timestamp'] = Time.now.to_s
-
   file = File.open("kekdb.json", "w")
   file.write(JSON.pretty_generate($db))
-
-  #file = File.open("kekdb.yaml", "w")
-  #file.write($db.to_yaml)
-
-end
-
-def getUser(id)
-  $db['users'].each_with_index do |x,index|
-    if x['id'] == id
-      #return [index, x]
-      return x
-    end
-  end
-  return nil
 end
 
 def getCollectible(description)
