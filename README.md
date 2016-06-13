@@ -2,6 +2,18 @@
 
 KekBot is a Discord meme trading bot. It is programmed equally with love *and* hate in Ruby, working off of a JSON databse.
 
+**Invite KekBot to your server: https://discordapp.com/oauth2/authorize?client_id=185442396119629824&scope=bot&permissions=0**
+
+## Support
+
+Questions, bugs, or feature requests? **Please report them here on GitHub!**
+
+For other inquiries, please join our Discord server and someone will be around to help you.
+
+**Join us on Discord!**
+
+https://discord.gg/011tZbkyatr8nf26S
+
 ## How it Works
 
 Users begin by registering with `.register`. This opts them in to KekBot's databse, and sets up their Wallet with a starting alotment of "keks" - the currency.
@@ -10,92 +22,57 @@ Users begin by registering with `.register`. This opts them in to KekBot's datab
 
 You can check your wallet with `.keks`.
 
-**Dank Bank keks** 
+**Dank Bank Keks** - These keks are your savings, and are used to purchase "rares" (covered later)
 
-These keks are your savings, and are used to purchase "rares" (covered later)
+**Sipend** - This is a seperate pool of 40 keks that you are given each day that you can give to other people to put into their Bank. 
 
-**Stipend**
-
-This is a seperate pool of keks that you are given each day (currently capped at 40) that you can give to other people to put into their Bank. Award your friends with keks for being funny, sharing great content or banter, or just generally being awesome!
+*Award your friends with keks for being funny, sharing great content or banter, or just generally being awesome!*
 
 You can give stipend keks to other users with `.give @user [amount]`
 
 ### Rares
 
-Rares are collectible memes that you can claim or purchase from other users. These aren't your average memes; they are often related to in-jokes in your community - they're special! As of `KekBot V1.X`, all rares are unique and can only be owned by one person at a time.
+Rares are collectible memes that you can claim or purchase from other users. These aren't your average memes; they are often related to in-jokes in your community - they're special! As of `KekBot V1.0`, all rares are unique and can only be owned by one person at a time.
 
 You can check your rare inventory with `.rares`. You can view a specific rare with `.show [description]`. 
 
-Rares can be traded (rare for rare) with friends with `.trade`, or sold for a price to other user with `.sell`. Each rare has a minimum sale value.
+Rares can be traded (rare for rare) with friends with `.trade`, or sold for a price to other user with `.sell`.
 
-## Under the Hood
+You can see what rares are available for purchase with `.catalog`. You can then take a closer look at them with `.show [description]`, and then use `.claim [description]` to claim it for your own. 
 
-KekBot's current schema:
+**Examples:**
 
-```json
-{
-  "timestamp": "2016-06-09 13:10:00 -0400",
-  "netTraded": 0,
-  "collectiblesName": "rare",
-  "currencyName": "keks",
-  "users": {
-    "120571255635181568": {
-      "name": "Lune",
-      "bank": 10,
-      "nickwallet": false,
-      "currencyReceived": 0,
-      "karma": 0,
-      "stipend": 40,
-      "collectibles": [
-        "69efa478890e114b2f3ee7c2e9875fff2925f9a3"
-      ]
-    }
-  },
-  "collectibles": {
-    "69efa478890e114b2f3ee7c2e9875fff2925f9a3": {
-      "description": "some description",
-      "timestamp": "2016-06-09 08:41:52 -0400",
-      "author": "Lune",
-      "url": "some.url",
-      "visible": false,
-      "claimed": false,
-      "unlock": 0,
-      "value": 10
-    }
-  }
-}
-```
+Open a trade with `@User` trading `my meme` for `your meme`
 
-*"Most of this is pretty self explanatory," - Lune, 2k16*
+`.trade @User my meme / your meme`
 
-Some not-so obvious things about this db:
+Sell `my meme` to `@User` for `20 keks`
 
-- `netTraded` is a counter for the total number of `currency` traded, across all users, to date. This is used with `"collectibles" : [ .. "unlock": value ..`  and will make more rares become available once `netTraded` reaches this threshhold. KekBot will push out a notification when new rares become available..
+`.sell my meme @User 20`
 
-- `currencyReceived`; we sperately track how many of `currency` the user has recieved to date. This is for a future feature for `KekBot v2.X`.
 
-- `karma`; the number of times the user has been sent `currency`. For now, this just lets us get some statistics via `currencyReceived / karma`.
+### Contribute!
 
-- `claimed`; once a rare becomes available, it must be `.claim`ed for its `value`. This is taken out of the 'users' 'bank'. After which, this field is `true`, and will always be in a players inventory. This lets us run a report on which `collectibles` have yet to be claimed by anyone.
+Submit rares to the database with `.submit [url] [description]`.
 
-- `collectibles` inside of `user` is a list of UIDs in the `collectibles` array that the `user` owns.
-
+Once the rare is approved by our mod team, it will be added to the database and will eventually be available for you and your friends to `.claim`.
 
 ## Credits
 
 Original idea by Derekuchan.
-
+Feature Design by Lune & Derekuchan
 Programmed by Lune (z64)
 
-Content Contributors:
+**Project Contributors**
+
+Other friends who have contributed in the development of KekBot:
+
 ```
 Aeroxyl
+Baldbeard
 Paper
 Skudfuddle
 TODOKEK
 ```
 
-**Join us on Discord!**
-
-https://discord.gg/011tZbkyatr8nf26S
-
+:heart:
