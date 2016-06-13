@@ -24,7 +24,7 @@ You can check your wallet with `.keks`.
 
 **Dank Bank Keks** - These keks are your savings, and are used to purchase "rares" (covered later)
 
-**Sipend** - This is a seperate pool of 40 keks that you are given each day that you can give to other people to put into their Bank. 
+**Stipend** - This is a seperate pool of 40 keks that you are given each day that you can give to other people to put into their Bank. 
 
 *Award your friends with keks for being funny, sharing great content or banter, or just generally being awesome!*
 
