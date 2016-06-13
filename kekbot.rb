@@ -170,7 +170,7 @@ bot.command(:keks, description: "fetches your balance, or @user's balance") do |
 end
 
 #set keks
-bot.command(:setkeks, min_args: 2, description: "sets @user's kek and stipend balance") do |event, mention, bank, stipend|
+bot.command(:setkeks, min_args: 3, description: "sets @user's kek and stipend balance") do |event, mention, bank, stipend|
   break unless event.channel.id == devChannel
 
   #get integers
@@ -315,13 +315,13 @@ bot.command(:show, min_args: 1, description: "displays a rare, or tells you who 
   end
 
   #don't show it if it exists, but is claimed by someone else
-  if collectible['data']['owner'].nil?
+  if !collectible['data']['owner'].nil?
     event << "`#{description}` is a claimed #{$db["collectiblesName"]}! :eyes:"
     return
   end
 
   #its unclaimed at this point - tell the user how to claim it
-  event << '`#{description}` is an unclaimed #{$db["collectiblesName"]}! :eyes:'
+  event << "`#{description}` is an unclaimed #{$db["collectiblesName"]}! :eyes:"
   event << "Use `.claim #{collectible["data"]["description"]}` to claim this #{$db["collectiblesName"]} for: **#{collectible["data"]["value"].to_s} #{$db["currencyName"]}!**"
   event << collectible["data"]['url']
 
