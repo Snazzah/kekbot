@@ -459,7 +459,7 @@ bot.command(:approve, min_args: 3, description: 'approves a submission, and sets
   event << "This collectible will be unlocked once #{unlock} more #{$db['currencyName']} are traded. (current: `#{$db['stats']['currencyTraded']}`)"
 
   #let the submitted know we accepted it.
-  author.pm('***Rejoice, mortal!***\nYour submission `message` has been approved.\nThank you!')
+  author.pm('***Rejoice, mortal!*** Your submission `message` has been approved. Thank you!')
 
 end
 
@@ -492,7 +492,7 @@ bot.command(:reject, min_args: 1, description: "rejects a submission", usage: ".
   if reason.nil?
     author.pm("There was no reason supplied by the moderators. Sorry! :frowning:")
   else
-    author.pm("It was rejected by the moderation with the following message:\n\n`#{reason}`")
+    author.pm("It was rejected by the moderation with the following message: `#{reason}`")
   end
 
   #notification
