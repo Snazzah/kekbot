@@ -60,7 +60,9 @@ Once the rare is approved by our mod team, it will be added to the database and 
 ## Credits
 
 Original idea by Derekuchan.
+
 Feature Design by Lune & Derekuchan
+
 Programmed by Lune (z64)
 
 **Project Contributors**
