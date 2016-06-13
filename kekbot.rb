@@ -377,7 +377,7 @@ bot.command(:catalog, description: "lists all unclaimed rares") do |event|
     end
 
     #add next collectible to message if its unclaimed
-    if (!data['owner'] & data['visible']) then message << "`#{data["description"]} (#{data["value"]})`  " end.nil?
+    if (!data['owner'] & data['visible']) then message << "`#{data["description"]} (#{data["value"]})`  " end
 
   end
 
