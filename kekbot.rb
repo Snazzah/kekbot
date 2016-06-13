@@ -459,8 +459,10 @@ bot.command(:approve, min_args: 3, description: 'approves a submission, and sets
   event << "This collectible will be unlocked once #{unlock} more #{$db['currencyName']} are traded. (current: `#{$db['stats']['currencyTraded']}`)"
 
   #let the submitted know we accepted it.
-  author.pm('***Rejoice, mortal!*** Your submission `message` has been approved. Thank you!')
+  author.pm("***Rejoice, mortal!*** Your submission `#{message}` has been approved. Thank you!")
 
+  save
+  nil
 end
 
 #rejection
@@ -504,6 +506,7 @@ bot.command(:reject, min_args: 1, description: "rejects a submission", usage: ".
   #stats
   $db['stats']['submissionsRejected'] += 1
 
+  save
   nil
 end
 
