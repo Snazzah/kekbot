@@ -54,12 +54,6 @@ bot.command(:restart, description: "restarts the bot") do |event|
 
 end
 
-bot.message(with_text: "Ping!") do |event|
-
-  event.respond 'Pong! :wink:'
-
-end
-
 bot.command(:game, description: "sets bot game") do |event, *game|
   break unless event.channel.id == devChannel
 
@@ -138,7 +132,7 @@ bot.command(:register, description: "registers new user") do |event|
   end
 
   #construct user
-  $db['users'][id] = { "name" => event.user.name, "bank" => 10, "nickwallet" => false, "currencyReceived" => 0, "karma" => 0, "stipend" => 40, "collectibles" => [] }
+  $db['users'][id] = { "joined" => Time.now, "name" => event.user.name, "bank" => 10, "nickwallet" => false, "currencyReceived" => 0, "karma" => 0, "stipend" => 40, "collectibles" => [] }
 
   #welcome message
   event << "**Welcome to the KekNet, #{event.user.name}!**"
