@@ -419,7 +419,7 @@ bot.command(:submit, min_args: 2, description: "adds a rare to the $db", usage: 
 
   #let admins know a collectible was submitted
   if event.channel.id != devChannel
-    event.bot.send_message(devChannel, "`#{event.user.name} [#{event.user.id}` submitted rare: `#{description}` :smile:\n#{url}]")
+    event.bot.send_message(devChannel, "`#{event.user.name} [#{event.user.id}]` submitted rare: `#{description}` :smile:\n#{url}")
   end
 
   #stats
