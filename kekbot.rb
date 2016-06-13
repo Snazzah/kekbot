@@ -553,7 +553,7 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
 
     elsif subevent.message.content == "reject"
 
-      subevent.respond("#buyer.on(event.server).display_name} has rejected your offer, #{event.user.mention} :x:")
+      subevent.respond("#{buyer.on(event.server).display_name} has rejected your offer, #{event.user.mention} :x:")
 
       #sale rejected - destroy await
       true
