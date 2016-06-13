@@ -533,7 +533,6 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
         #process currency transaction
         buyer_db["bank"] -= amount
         seller_db["bank"] += amount
-        $db["netTraded"] += amount
 
         #output message
         subevent.respond("#{buyer.on(event.server).display_name} accepted your offer, #{event.user.mention}!")
