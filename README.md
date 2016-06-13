@@ -77,4 +77,8 @@ Skudfuddle
 TODOKEK
 ```
 
+As well as everyone in `#ruby_discordrb` in the Discord API server!
+
+Without them I would've been so lost. :ok:
+
 :heart:
