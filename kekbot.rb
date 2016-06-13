@@ -547,7 +547,7 @@ bot.command(:claim, min_args: 1, description: "claims an unclaimed rare", usage:
   #perform transaction
   user['collectibles'] << collectible['id']
   user['bank'] -= collectible['data']['value']
-  collectible['data']['owner'] = event.user.id.to_s
+  collectible['data']['owner'] = event.user.id
   save
 
   #output success
@@ -574,7 +574,7 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
   end
 
   #check that you own what you want to sell
-  if collectible['data']['owner'] != seller.id.to_s
+  if collectible['data']['owner'] != seller.id
     event << "You don't have this #{$db["collectiblesName"]}.. :eyes:"
     return
   end
@@ -604,7 +604,7 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
         #swap collectible between users
         seller_db["collectibles"].delete(collectible['id'])
         buyer_db["collectibles"] << collectible['id']
-        collectible['owner'] = buyer.id.to_s
+        collectible['owner'] = buyer.id
 
         #process currency transaction
         buyer_db["bank"] -= amount
