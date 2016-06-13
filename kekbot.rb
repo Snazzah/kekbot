@@ -426,13 +426,105 @@ bot.command(:submit, min_args: 2, description: "adds a rare to the $db", usage: 
   description = description.join(' ')
 
   #write new collectible
-  $db['collectibles'][Digest::SHA1.hexdigest(url)] = { "description" => description, "timestamp"=> Time.now, "author" => event.user.name, "owner" => nil, "url" => url, "visible" => false, "unlock" => 0, "value" => 0 }
+  $db['collectibles'][Digest::SHA1.hexdigest(url)] = { "description" => description, "timestamp"=> Time.now, "author" => event.user.id, "owner" => nil, "url" => url, "visible" => false, "unlock" => 0, "value" => 0 }
 
   #output success
   event << "**Thank you #{event.user.mention}!**"
   event << "Submitted rare: `#{description}`"
 
+  #let admins know a collectible was submitted
+  if event.channel.id != devChannel
+    event.bot.send_message(devChannel, "`#{event.user.name} [#{event.user.id}` submitted rare: `#{description}` :smile:\n#{url}]")
+  end
+
+  #stats
+  $db['stats']['submissions'] += 1
+
   save
+  nil
+end
+
+#approve a collectible
+bot.command(:approve, min_args: 3, description: 'approves a submission, and sets a claim and unlock value, as a delta of the total amount of currency traded to date', usage: '.approve [description] [value] [unlock]') do |event, *message|
+  break unless event.channel.id == devChannel
+
+  #setup
+  unlock = message.pop.to_i
+  value = message.pop.to_i
+  message = message.join(' ')
+  collectible = getCollectible(message)
+  author = event.bot.user(collectible['data']['author'])
+
+  #check we spelt it right. let's be real, here
+  if collectible.nil?
+    event << "Collectible `#{message}` not found. :("
+    return
+  end
+
+  #check that a submission isn't already approved
+  if (collectible['data']['unlock'] != 0) || (!collectible['data']['owner'].nil?) || (collectible['data']['visible']) || (collectible['data']['value'] != 0)
+    event << "This collectible is already on the market."
+    return
+  end
+
+  #we did it reddit
+  #configure collectible to be unlocked
+  collectible['data']['unlock'] = $db['stats']['currencyTraded'] + unlock
+  collectible['data']['value'] = value
+
+  #stats
+  $db['stats']['submissionsApproved'] += 1
+
+  #notifications
+  event << "`#{message}` approved!"
+  event << "This collectible will be unlocked once #{unlock} more #{$db['currencyName']} are traded. (current: `#{$db['stats']['currencyTraded']}`)"
+
+  #let the submitted know we accepted it.
+  author.pm('***Rejoice, mortal!***\nYour submission `message` has been approved.\nThank you!')
+
+end
+
+#rejection
+bot.command(:reject, min_args: 1, description: "rejects a submission", usage: ".reject [description] --reason [optional reason]") do |event, *message|
+  break unless event.channel.id == devChannel
+
+  #setup
+  message = message.join(' ')
+  message = message.split('--reason').map(&:strip)
+  collectible = message[0]
+  reason = message[1]
+  collectible = getCollectible(collectible)
+  author = event.bot.user(collectible['data']['author'])
+
+  #check we spelt it right. let's be real, here
+  if collectible.nil?
+    event << "Collectible `#{message}` not found. :("
+    return
+  end
+
+  #don't let mods reject something that already has an owner.
+  if !collectible['data']['owner'].nil?
+    event << "This collectible already has an owner."
+    event << "You can't reject it."
+  end
+
+  #let the author know we rejected their submission, and why if a reason was supplied
+  author.pm("Your submission `#{collectible['data']['description']}` has been rejected.")
+  if reason.nil?
+    author.pm("There was no reason supplied by the moderators. Sorry! :frowning:")
+  else
+    author.pm("It was rejected by the moderation with the following message:\n\n`#{reason}`")
+  end
+
+  #notification
+  event << "Rejected submission `#{collectible['data']['description']}`."
+
+  #delete the submission
+  $db["collectibles"].delete(collectible['id'])
+
+  #stats
+  $db['stats']['submissionsRejected'] += 1
+
   nil
 end
 
