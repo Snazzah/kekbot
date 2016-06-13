@@ -1,8 +1,18 @@
 {
-  "timestamp": "",
-  "netTraded": 0,
+  "timestamp": "2016-06-13 05:19:54 -0400",
   "collectiblesName": "rare",
   "currencyName": "keks",
-  "users": {},
-  "collectibles": {}
+  "stats": {
+    "currencyTraded": 0,
+    "trades": 0,
+    "sales": 0,
+    "salesValue": 0,
+    "submissions": 0,
+    "submissionsApproved": 0,
+    "submissionsRejected": 0
+  },
+  "users": {
+  },
+  "collectibles": {
+  }
 }
