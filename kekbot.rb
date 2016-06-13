@@ -188,9 +188,6 @@ bot.command(:setkeks, min_args: 2, description: "sets @user's kek and stipend ba
   $db['users'][user]['bank'] = bank
   $db['users'][user]['stipend'] = stipend
 
-  #update nickwallet
-  #updateNick($db, event.message.mentions.at(0).on(event.server))
-
   #notification
   event << "Oh, senpai.. updated! :wink:"
 
@@ -253,9 +250,6 @@ bot.command(:give, min_args: 2,  description: "give currency") do |event, to, va
   #update server stats
   $db['stats']['currencyTraded'] += value
 
-  #update nickwallet
-  #updateNick($db, event.bot.parse_mention(to).on(event.server))
-
   #notification
   event << "**#{event.user.on(event.server).display_name}** awarded **#{event.message.mentions.at(0).on(event.server).display_name}** with **#{value.to_s} #{$db["currencyName"]}** :joy: :ok_hand: :fire:"
 
@@ -297,27 +291,6 @@ bot.command(:setstipend, min_args: 1, description: "sets all users stipend value
 
   #notification
   event << "All stipends set to `#{value.to_s}`"
-
-end
-
-bot.command(:nickwallet, description: "Toggle: shows your wallet in your nickname.") do |event|
-
-  # user = getUser($db, event.user.id)
-  # user["nickwallet"] = !user["nickwallet"]
-  #
-  # if user["nickwallet"]
-  #
-  #   event.user.on(event.server).nick = "#{event.user.on(event.server).on(event.server).display_name} (#{user["bank"]} #{$db["currencyName"]})"
-  #   event << "Nickname applied."
-  #
-  # else
-  #
-  #   event.user.on(event.server).nick = ""
-  #   event << "Nickname removed."
-  #
-  # end
-  #
-  # nil
 
 end
 
@@ -575,7 +548,6 @@ bot.command(:claim, min_args: 1, description: "claims an unclaimed rare", usage:
   user['collectibles'] << collectible['id']
   user['bank'] -= collectible['data']['value']
   collectible['data']['owner'] = event.user.id.to_s
-  #updateNick($db, event.user.on(event.server))
   save
 
   #output success
@@ -645,8 +617,6 @@ bot.command(:sell, min_args: 3, description: "create a sale", usage: ".sell [des
         $db['stats']['sales'] += 1
         $db['stats']['salesValue'] += amount
 
-        #updateNick($db, buyer.on(event.server))
-        #updateNick($db, event.user.on(event.server))
         save
 
       end
@@ -783,13 +753,6 @@ def getCollectible(description)
     return { "id" => id, "data" => data } if data['description'] == description
   end
   return nil
-end
-
-def updateNick(user)
-  user_db = getUser(db, user.id)
-  if user_db["nickwallet"]
-    user.nick = "#{user_db["name"]} (#{user_db["bank"]} #{db["currencyName"]})"
-  end
 end
 
 bot.run
