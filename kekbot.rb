@@ -425,6 +425,18 @@ bot.command(:submit, min_args: 2, description: "adds a rare to the $db", usage: 
   #stitch together description splat
   description = description.join(' ')
 
+  #for the time being, only allow lowercase submissions
+  description = description.downcase
+
+  $db['collectibles'].each do |key, data|
+    if data['url'] == url
+      event << "This collectible already exists under a different name!"
+    end
+    if data['description'] == description
+      event << "A collectible already exists with this description."
+    end
+  end
+
   #write new collectible
   $db['collectibles'][Digest::SHA1.hexdigest(url)] = { "description" => description, "timestamp"=> Time.now, "author" => event.user.id, "owner" => nil, "url" => url, "visible" => false, "unlock" => 0, "value" => 0 }
 
