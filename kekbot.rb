@@ -736,4 +736,16 @@ def getCollectible(description)
   return nil
 end
 
+def parse(seperator, input)
+  input = input.prepend("--default ")
+  output = Hash.new
+  input.split(seperator).drop(1).map do |x|
+    x = x.split(' ')
+    arg = x.shift
+    puts content = x.join(' ')
+    output[arg] = content
+  end
+  return output
+end
+
 bot.run
