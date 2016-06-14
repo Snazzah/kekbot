@@ -129,6 +129,7 @@ bot.command(:register, description: "registers new user") do |event|
   #check if user is already registered
   if !$db['users'][id].nil?
     event << "You are already registered, yung kek."
+    return
   end
 
   #construct user
