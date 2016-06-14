@@ -548,7 +548,7 @@ bot.command(:claim, min_args: 1, description: "claims an unclaimed rare", usage:
   save
 
   #output success
-  event << "`#{description}` has been added to your `.inventory`! :money_with_wings:"
+  event << "`#{description}` has been added to your `.rares`! :money_with_wings:"
 
 end
 
