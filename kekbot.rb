@@ -287,6 +287,8 @@ bot.command(:setstipend, min_args: 1, description: "sets all users stipend value
   #notification
   event << "All stipends set to `#{value.to_s}`"
 
+  save
+  nil
 end
 
 #COLLECTIBLES
