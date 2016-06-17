@@ -38,7 +38,11 @@ bot.ready do |event|
 
   bot.send_message(devChannel, "**Active servers** :computer:")
   bot.servers.each do |x|
-    bot.send_message(devChannel, "```name: #{x[1].name}\nowner: #{x[1].owner.username}\nmembers: #{x[1].member_count}```")
+    registered = x[1].members.collect do |m|
+      true unless $db['users'][m.id.to_s].nil?
+    end
+    registered = registered.compact.length
+    bot.send_message(devChannel, "```name: #{x[1].name}\nowner: #{x[1].owner.username}\nregistered members: #{registered} / #{x[1].member_count}```")
     sleep 0.5
   end
 
