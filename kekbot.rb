@@ -744,7 +744,7 @@ def getCollectible(description)
 end
 
 def parse(seperator, input)
-  input = input.prepend("--default ")
+  input = input.prepend("#{seperator}default ")
   output = Hash.new
   input.split(seperator).drop(1).map do |x|
     x = x.split(' ')
