@@ -706,7 +706,7 @@ bot.command(:trade, description: "trade collectibles with other users", usage: "
 
     elsif subevent.message.content == "reject"
 
-      subevent.respond("user_b.on(event.server).display_name} has rejected your offer, #{event.user.mention} :x:")
+      subevent.respond("#{user_b.on(event.server).display_name} has rejected your offer, #{event.user.mention} :x:")
 
       true
 
