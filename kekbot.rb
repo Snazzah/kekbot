@@ -14,8 +14,8 @@ version = "v1.0"
 
 bot.ready do |event|
 
-  # file = File.read('kekdb.json')
-  # $db = JSON.parse(file)
+  file = File.read('kekdb.json')
+  $db = JSON.parse(file)
 
   message = ""
 
