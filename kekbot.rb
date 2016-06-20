@@ -50,10 +50,10 @@ end
 
 # strip users that are unreachable to the bot.
 bot.heartbeat do
-  $db['collectibles'].each do |id|
-    rare = id[1]
+  $db['collectibles'].each do |rare|
     break unless rare['owner'].nil?
-    $db["users"].delete(rare['owner'].to_s); $db['collectibles'][id]['owner']==nil unless bot.user(rare['owner']).nil?
+    $db["users"].delete(rare['owner'].to_s) unless bot.user(rare['owner']).nil?
+    save
   end
 end
 
@@ -104,7 +104,7 @@ end
 
 bot.command(:log, min_args: 1, description: "gets n many rev logs") do |event, number|
 
-  cmd = %q(git log --pretty=format:"%h - %an, %ar : %s" -n ) + number
+  cmd = %q(git log --pretty=format:\"%h - %an, %ar : %s\" -n ) + number
   log = `#{cmd}`
 
   cmd = "git branch"
