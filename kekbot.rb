@@ -696,6 +696,9 @@ bot.command(:trade, description: "trade collectibles with other users", usage: "
       user_b_db["collectibles"].delete(collectible_b['id'])
       user_b_db["collectibles"] << collectible_a['id']
 
+      collectible_a['owner'] = user_b.id
+      collectible_b['owner'] = uber_a.id
+
       subevent.respond("Trade complete! :blush: :heart:")
 
       #stats
